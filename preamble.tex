@@ -1,0 +1,84 @@
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\addbibresource{./reference.bib}
+% linktocpage shall be added to snippets.
+
+% \usepackage{hyperref,theoremref}
+% \hypersetup{
+% 	colorlinks, 
+% 	linkcolor={red!40!black}, 
+% 	citecolor={blue!50!black},
+% 	urlcolor={blue!80!black},
+% 	linktocpage % Link table of content to the page instead of the title
+% }
+
+\usepackage{subfiles}
+\usepackage{blindtext}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usetikzlibrary{positioning}
+
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{titlesec}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{multicol}
+% \usepackage{hyperref}
+\usepackage{import}
+
+
+\newtheorem{thm}{Theorema}[chapter]
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{coro}[thm]{Corollarium}
+\newtheorem{prop}[thm]{Propositio}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definitio}
+
+\theoremstyle{definition}
+\newtheorem{axiom}[thm]{Axioma}
+\newtheorem{observation}[thm]{Observation}
+
+\theoremstyle{remark}
+\newtheorem{remark}[thm]{Observatio}
+\newtheorem{hypothesis}[thm]{Coniectura}
+\newtheorem{example}[thm]{Exampli Gratia}
+
+\renewcommand\emptyset{\varnothing}
+\renewcommand\mod{\text{ mod }}
+%TODO mayby proof environment shall have more margin
+% \renewenvironment{proof}{\vspace{0.4cm}\noindent\small{\emph{Demonstratio.}}}{\qed\vspace{0.4cm}}
+% \renewenvironment{proof}{{\bfseries\emph{Demonstratio.}}}{\qed}
+\renewcommand\qedsymbol{Q.E.D.}
+% \renewcommand{\chaptername}{Caput}
+% \renewcommand{\contentsname}{Index Capitum} % Index Capitum 
+\renewcommand{\emph}[1]{\textbf{\textit{#1}}}
+\renewcommand{\ker}[1]{\operatorname{Ker}{#1}}
+
+%\DeclareMathOperator{\ker}{Ker}
+
+% New Commands
+\newcommand{\bb}[1]{\mathbb{#1}} %TODO add this line to nvim snippets
+\newcommand{\orb}[2]{\text{Orb}_{#1}({#2})}
+\newcommand{\stab}[2]{\text{Stab}_{#1}({#2})}
+\newcommand{\im}[1]{\text{im}{\ #1}}
+\newcommand{\se}[2]{\text{send}_{#1}({#2})}
+\newcommand{\be}{b_\text{eff}}
+\renewcommand{\L}{L_{\lambda}(x)}
+
+% project specific macros
+% m stands for maximum
+\newcommand{\mx}{\overline{x}}
+
+\date{27 February, 2025}
+\title{Quantifying Chaos}
+\author{Luc Dixon, Yuhao Han, Logan Hinkley}
+
+\usepackage[y4project,fancyhdr,hyperref,colour]{edmaths}
+\renewcommand{\L}{L_{\lambda}(x)}
+\flushbottom
