@@ -21,6 +21,7 @@
 \usetikzlibrary{positioning}
 
 \usepackage{amssymb}
+\usepackage{mathtools}
 \usepackage{titlesec}
 \usepackage{amsthm}
 \usepackage{thmtools}
@@ -69,6 +70,8 @@
 \newcommand{\stab}[2]{\text{Stab}_{#1}({#2})}
 \newcommand{\im}[1]{\text{im}{\ #1}}
 \newcommand{\se}[2]{\text{send}_{#1}({#2})}
+\newcommand{\be}{b_\text{eff}}
+\renewcommand{\L}{L_{\lambda}(x)}
 
 % project specific macros
 % m stands for maximum
@@ -257,11 +260,11 @@ Chaotic behaviors are \emph{preserved} by conjugacy.
 
 Since conjugacy impies semi-conjugacy on both directions, we have the following important proposition.
 
-\begin{prop}[Conjugacy Preserse Chaos]\label{prop_conj_chaos}
+\begin{prop}[Conjugacy Class share chaotic behavior]\label{prop_conj_chaos}
 	If $f$ is conjugate to $g$, $f$ is chaotic if and only if $g$ is chaotic.
 \end{prop}
 
-There are abundunt examples of topological conjugacy.
+There are abundant examples of topological conjugacy.
 
 \begin{example}
 	If $f$ is conjugate to $g$ via $\phi$, and $g$ is conjugate to $h$ via $\psi$, $f$ is conjugate to $h$ via $\psi \circ \phi$.
@@ -324,12 +327,175 @@ There are abundunt examples of topological conjugacy.
 \end{example}
 
 \begin{example}\label{ex_logistic_at_4}\label{ex_logistic_and_doubling}
-	The above 3 examples shows that the doubling map is semi-conjugate to the logistic map $L(x;1) = 4x(1-x)$.
+	The above 3 examples shows that the doubling map is semi-conjugate to the logistic map $L_1(x) = 4x(1-x)$.
+\end{example}
+
+\begin{example}
+	The logistic map $L_1(x) = 4x(1-x)$ in the interval $[0,1]$ is topologically conjugate to the tent map defined as 
+	\begin{equation}
+		f(x) = 
+		\begin{cases}
+			2x   &\text{ if } 0<x \leq \frac{1}{2} \\ 
+			2-2x &\text{ if } \frac{1}{2} < x \leq 1
+		\end{cases}
+	\end{equation}
+	via the map $h: [0,1] \rightarrow [0,1]$ defined as $h(x) = \sin^2(\frac{\pi x}{2})$.
+	This can be verified by the simple computation $L_1 \circ h = h \circ f$.
 \end{example}
 
 \chapter{Bifurcations in Discrete Dynamical Systems}
 
+\section{The Logistic Map as Model for Population Growth}
+
+One dimensional recursive equations $x_{n+1} = f(x_n)$ are used for modeling various dynamical systems. 
+Its simplicity makes it easy to study, and many of its properties are also inherited by their more complicated counterparts.
+
+Consider, for example, bacteria population in discrete time intervals. 
+If the population is low and resource abundant, the rate of growth is in porportion to the population, which give rise to the following equation
+
+$$
+p_{t+1} = p_{t} b,
+$$
+where $p_{t}$ is the population of the bacteria at the dicrete time $t$ and $b$ as a constant is the static birth rate for bacteria whose value will depend on the model.
+
+The limited resource will slow down the rate of growth as the population increases, and the the relation will become 
+
+$$
+	p_{t+1} =  p_{t} \be
+$$
+
+The usual assumption is that $\be$ is close to $b$ when the population is closed to zero, and there is a threshold which the population will never surpass. At the threshold $\be$ will be zero.
+
+The simplest equation for modelling $\be$ is the linear equation
+
+$$
+\be = b - ap,
+$$
+
+where $a$ is another constant.
+Combining the two, the recursive formula becomes 
+
+$$
+p_{t+1}  = b p_t - ap_t^2
+$$
+
+Substituting $p_{t} := \frac{b}{a} x_{t}, \lambda := \frac{b}{4}$, we obtain
+
+$$
+x_{t+1} = 4 \lambda x_t(1-x_t) 
+$$
+
+Indeed, thence come the standard forms of the logistic map
+
+\begin{equation}\label{eq_logistic}
+	L_{\lambda}(x) = 4 \lambda x(1-x)
+\end{equation}
+
+% graph produced by `logistic_map_diff_lambda`
+\begin{figure}[t]
+	\centering
+	\label{fig:logistic_map_diff_lambda}
+	\includegraphics[width=0.7\textwidth]{./figures/logistic_map_diff_lambda.png}
+	\caption{Graphs of logistic map $L_{\lambda}(x) = 4 \lambda x(1-x)$ for different $\lambda$ compared with the line $y=x$ and $y = 1$.} 
+\end{figure}
+
+
+For our purpose the restriction $\lambda >0$ is applied.
+Scrutinising the class of discrete logistic functions plotted in figure \ref{fig:logistic_map_diff_lambda}, some of their properties are obvious
+
+\begin{enumerate}
+	\item $\L$ is a smooth function.
+	\item $\L$ concaves downwards, that is, $\L'' < 0$.
+	\item $\L$ attains a unique maximum at $x = \frac{1}{2}$, and $L_{\lambda}(\frac{1}{2}) = \lambda$.
+	\item When $0 \leq \lambda$ and $x$ is restricted to the domain $[0, 1]$, $\L$ is a two-to-one non-surjective (except for $\lambda = 1$) function $\L: [0,1] \rightarrow [0,\lambda]$. 
+\end{enumerate}
+
+Some sources defined the logistic map as $L'_{\lambda'}(x) = \lambda' x(1-x)$ without the constant 4. 
+In this report, however, we will use equation \ref{eq_logistic}, which has the advantage that the maximum value attained by $\L$ is $\lambda$. This notation will also be consistent to the definitions of other class of functions discussed later in the report.
+
+We can check if this model would work as expected by comparing it to its continuous counterpart 
+
+\begin{equation}\label{eq_logistic_continuous}
+	\frac{dp}{dt} = c p(x) (1-p(x)),
+\end{equation}
+
+whose unique solution with the initial condition $p(0) = \frac{1}{2}$ is 
+
+$$
+p(t) = \frac{e^{cx}}{1+e^{cx}}
+$$
+
+\begin{figure}[b!]
+	\centering
+	\label{fig:con_vs_discrete}
+	\includegraphics[width=0.8\textwidth]{./figures/con_vs_discrete_logistic_map.png}
+	\caption{Discrete (left) v.s. continuous (right) logisitc map. Discrete case is modeld by $\lambda = 0.5$ and $x_0 = 0.0003$. The continuous case has $c=1$.}
+\end{figure}
+
+The graph of these two maps are shown in figure \ref{fig:con_vs_discrete}.
+The population of the discrete case was obtained by setting an arbitrary initial value, here $x_0 = 0.0003$, and the population of the next time interval was obtained by simple iteration of the logistic map, that is $x_{i+1} = L_{\lambda}(x_i)$.
+For the continuous case the population at each time was obtained by solving the differential equation with initial condition.
+Indeed, at least for the selected value of $\lambda$ and $c$, the population modeld by the two maps are similar.
+
+Having settled that the discrete logistic map is indeed, at least for some values of $\lambda$, a good simplification for the already-simplified equation \ref{eq_logistic_continuous} as a model for population growth, you may wondered why bother studying such a simple equation. 
+The reason is, as simple as it seems, the iteration of equation \ref{eq_logistic} gives rise to some extremely complicated dynamical systems with many surprising properities. 
+These interesting dynamics are also observed in the continuous case and is the study of the next session.
+
+% graph produced by logistic_vs_continuous_modelling_population
+
+
 \section{Logistic Bifurcations}
+
+The first step of studying logistic bifurcations is to plot it with different initial values and $\lambda$. 
+For now only $0 \leq \lambda \leq 1$ and $0 \leq x_0 \leq 1$ are considered, so that $\L$ is a map from $[0,1]$ to $[0,1]$. 
+
+% graph produced by `modelling_pop_with_diff_logistic_maps` in `graph_qc` repo
+\begin{figure}[htbp]
+	\centering
+	\label{fig:various_iter_logistic}
+	\includegraphics[width=\textwidth]{./figures/various_iterating_logistic_map.png}
+	\caption{Iterating the logistic map with different initial values and $\lambda$. All graphs are produced by setting a $x_0$ and $\lambda$, and iterating $x_{n+1} = L_{\lambda}(x_n)$, and plotting all $x_n$ values respect to iteration number $n$.}
+\end{figure}
+
+There are several immediate observations upon looking at the figure \ref{fig:various_iter_logistic}.
+When $\lambda = 0.1$ and $0.25$, it seems $\lim_{n \rightarrow \infty} x_n = 0$ regardless of the value of $x_0$.
+For $\lambda = 0.6$, $\lim_{n \rightarrow \infty} x_n = l \neq 0$. 
+(We can show that, after more tools a developped in the next sessions, $l = \frac{7}{12}$). 
+
+When $\lambda = 0.8$, $x_n$ no longer converges, instead it seems to oscillate in a stable two orbit. When $\lambda = 0.9$ and $\lambda = 1$, it is not clear that if $x_n$ has any stable orbits or sensible patterns, and the best epithed for them would be `chaotic'.
+A rigorous topological definition for chaos will be provided in the following session.
+
+For all cases it seems like any initial condtion, $x_0$, upon iteration, will eventually tend to some common dynamical behavior depending only on $\lambda$.
+The scatter plot, figure \ref{fig:logistic bifurcation overview}, is produced to capture the behavior of $x_n$ as $n \rightarrow \infty$ for $0 \leq \lambda \leq 1$. 
+Two zoomed in figure around the area of bifurcation are also produced.
+
+These pictures of bifurcation are indeed spectacular. 
+There is one single stable orbit until $\lambda = 0.75$, after which a stable two cycles appears.
+The two cycle bifurcated to 4 cycles, $2^3$ cycles, $2^n$ cycles, but after some threshold around $\lambda = 0.88$, there are no longer clear stable cycles and all that is left are chaos. 
+
+
+\begin{figure}[htbp]
+	\centering
+	\label{fig:logistic bifurcation overview}
+	\includegraphics[width=\textwidth]{./figures/l_bifurcation_overview.png}
+	\caption{For each $\lambda \in [0,1]$, $x_0$ is set to $0.5$, and the value of each iteration of $x_{n+1} = L_{\lambda}(x_n)$ was plotted at the coordinate $(\lambda, x_{n+1})$ as a faint blue dot. 
+	The first 100 iteration was discarded, and 1500 iterations were plotted for each value of $\lambda$.}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\label{fig:logistic_bifurcation_zoom_1}
+	\includegraphics[width=\textwidth]{./figures/l_bifurcation_zoom_1.png}
+	\caption{Zooming in the figure \ref{fig:logistic bifurcation overview} at the interval $0.5 \leq \lambda \leq 1$.}
+\end{figure}
+
+% TODO: caption non finished
+\begin{figure}[htbp]
+	\centering
+	\label{fig:logistic_bifurcation_zoom_2}
+	\includegraphics[width=\textwidth]{./figures/l_bifurcation_zoom_2.png}
+	\caption{Zooming in the figure \ref{fig:logistic bifurcation overview} at the interval $0.5 \leq \lambda \leq 1$.}
+\end{figure}
 
 \begin{observation}[Logistic Bifurcation]\label{th:logistic_bifurcation}
 	Let $f_{\lambda} = \lambda 4x(1-x) $ be the logistic function with a parameter $\lambda$, which takes value from $0$ to $1$. 
@@ -353,7 +519,7 @@ There are abundunt examples of topological conjugacy.
 \section{Single Nodal Functions Give Rise to Bifurcations}
 
 It is very common for a mathematic model to consist, at least in parts, of iterations of some functions.
-For the sake of simplicity and generosity, assume the value of our interest is $x_i$ is modeled by the simple recursive relations $f$ with the parameter $\lambda$. With appropriate rescaling, we assume moreover $x_i \in [0,1], \lambda \in [0,1]$ and $f: [0,1] \rightarrow [0,1]$:
+For the sake of simplicity and generosity, assume the value of our interest is $x_i$ is modelled by the simple recursive relations $f$ with the parameter $\lambda$. With appropriate rescaling, we assume moreover $x_i \in [0,1], \lambda \in [0,1]$ and $f: [0,1] \rightarrow [0,1]$:
 
 \begin{equation}
 	x_{i+1}=\lambda f(x_i)
