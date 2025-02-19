@@ -57,25 +57,25 @@ For our purpose the restriction $\lambda >0$ is applied.
 Scrutinising the class of discrete logistic functions plotted in figure \ref{fig:logistic_map_diff_lambda}, some of their properties are obvious
 
 \begin{enumerate}
-	\item $\L$ is a smooth function.
-	\item $\L$ concaves downwards, that is, $\L'' < 0$.
-	\item $\L$ attains a unique maximum at $x = \frac{1}{2}$, and $L_{\lambda}(\frac{1}{2}) = \lambda$.
-	\item When $0 \leq \lambda$ and $x$ is restricted to the domain $[0, 1]$, $\L$ is a two-to-one non-surjective (except for $\lambda = 1$) function $\L: [0,1] \rightarrow [0,\lambda]$. 
+	\item $\L(x)$ is a smooth function.
+	\item $\L(x)$ concaves downwards, that is, $\L(x)'' < 0$.
+	\item $\L(x)$ attains a unique maximum at $x = \frac{1}{2}$, and $L_{\lambda}(\frac{1}{2}) = \lambda$.
+	\item When $0 \leq \lambda$ and $x$ is restricted to the domain $[0, 1]$, $\L(x)$ is a two-to-one non-surjective (except for $\lambda = 1$) function $\L(x): [0,1] \rightarrow [0,\lambda]$. 
 \end{enumerate}
 
 Some sources defined the logistic map as $L'_{\lambda'}(x) = \lambda' x(1-x)$ without the constant 4. 
-In this report, however, we will use equation \ref{eq_logistic}, which has the advantage that the maximum value attained by $\L$ is $\lambda$. This notation will also be consistent to the definitions of other class of functions discussed later in the report.
+In this report, however, we will use equation \ref{eq_logistic}, which has the advantage that the maximum value attained by $\L(x)$ is $\lambda$. This notation will also be consistent to the definitions of other class of functions discussed later in the report.
 
 We can check if this model would work as expected by comparing it to its continuous counterpart 
 
 \begin{equation}\label{eq_logistic_continuous}
-	\frac{dp}{dt} = c p(x) (1-p(x)),
+	\frac{dp}{dx} = c p(x) (1-p(x)),
 \end{equation}
 
 whose unique solution with the initial condition $p(0) = \frac{1}{2}$ is 
 
 $$
-p(t) = \frac{e^{cx}}{1+e^{cx}}
+p(x) = \frac{e^{cx}}{1+e^{cx}}
 $$
 
 \begin{figure}[b!]
@@ -100,7 +100,7 @@ These interesting dynamics are also observed in the continuous case and is the s
 \section{Logistic Bifurcations}
 
 The first step of studying logistic bifurcations is to plot it with different initial values and $\lambda$. 
-For now only $0 \leq \lambda \leq 1$ and $0 \leq x_0 \leq 1$ are considered, so that $\L$ is a map from $[0,1]$ to $[0,1]$. 
+For now only $0 \leq \lambda \leq 1$ and $0 \leq x_0 \leq 1$ are considered, so that $\L(x)$ is a map from $[0,1]$ to $[0,1]$. 
 
 % graph produced by `modelling_pop_with_diff_logistic_maps` in `graph_qc` repo
 \begin{figure}[htbp]
@@ -113,99 +113,169 @@ For now only $0 \leq \lambda \leq 1$ and $0 \leq x_0 \leq 1$ are considered, so 
 There are several immediate observations upon looking at the figure \ref{fig:various_iter_logistic}.
 When $\lambda = 0.1$ and $0.25$, it seems $\lim_{n \rightarrow \infty} x_n = 0$ regardless of the value of $x_0$.
 For $\lambda = 0.6$, $\lim_{n \rightarrow \infty} x_n = l \neq 0$. 
-(We can show that, after more tools a developped in the next sessions, $l = \frac{7}{12}$). 
+(We can show that, after more tools are developped in the next sessions, $l = \frac{7}{12}$). 
 
-When $\lambda = 0.8$, $x_n$ no longer converges, instead it seems to oscillate in a stable two orbit. When $\lambda = 0.9$ and $\lambda = 1$, it is not clear that if $x_n$ has any stable orbits or sensible patterns, and the best epithed for them would be `chaotic'.
-A rigorous topological definition for chaos will be provided in the following session.
+When $\lambda = 0.8$, $x_n$ no longer converges but oscillates in a stable two orbit. 
+For $\lambda = 0.9$ and $\lambda = 1$, it is not clear that if $x_n$ has any stable orbits or sensible patterns, and the best epithed for them would be `chaotic'.
+A rigorous topological definition for chaos will be provided in the following session. 
+% TODO: add which session
 
 For all cases it seems like any initial condtion, $x_0$, upon iteration, will eventually tend to some common dynamical behavior depending only on $\lambda$.
 The scatter plot, figure \ref{fig:logistic bifurcation overview}, is produced to capture the behavior of $x_n$ as $n \rightarrow \infty$ for $0 \leq \lambda \leq 1$. 
-Two zoomed in figure around the area of bifurcation are also produced.
+Two zoomed in figure around the area of interests are also produced in figure \ref{fig:logistic_bifurcation_zoom_1} and \ref{fig:logistic_bifurcation_zoom_2}.
 
-These pictures of bifurcation are indeed spectacular. 
-There is one single stable orbit until $\lambda = 0.75$, after which a stable two cycles appears.
-The two cycle bifurcated to 4 cycles, $2^3$ cycles, $2^n$ cycles, but after some threshold around $\lambda = 0.88$, there are no longer clear stable cycles and all that is left are chaos. 
+These pictures are indeed spectacular. 
+For $\lambda$ between $0$ and $a_0 = 0.25$, there is a stable fixed point $x = 0$.
+When $\lambda$ increases and become greater than $a_1 = 0.75$, $0$ no longer the stable fixed point, but there is another unique stable fixed point elsewhere.
+Precisely when this stable fix point becomes unstable around $\lambda = a_2 \approx 0.77$, a stable two cycles appears.
+The stable two cycle, again, disappeared around $\lambda = a_3 \approx 0.86$, at which point a stable 4 cycles appears. 
+This periodic doubling of orbits, which seems to continue indefinitely, is called bifurcation. 
+Upon a closer inspections on figure \ref{fig:logistic_bifurcation_zoom_1} and figure \ref{fig:logistic_bifurcation_zoom_2}, each stable orbit seems to be self-similar, and all stable orbit cross the line $y = 0.5$ for some $\lambda$.
 
+Bifurcation, however, does not exhaust the whole spectrum of $[0,1]$, and $a_{n}$ seems to converge to some limit as $n \rightarrow \infty$. 
+Label this limit as $a_{\infty}$.
+For $\lambda > a_{\infty}$, there are no longer any obvious pattern and the overall behavior is best described as chaotic. 
+Nevertheless, in this chaotic region there are windows for stable orbits of odd periods which are not observed for $\lambda < a_{\infty}$. (The term window describing an interval of $\lambda$ for which stable orbit orbit exists is introduced by May \cite{May_Nature}.)
+Examples are $\lambda \approx 0.957$ for a 3-cycle and $\lambda \approx 0.934$ for a 5-cycle in figure \ref{fig:logistic_bifurcation_zoom_3}.
+
+The following paragraph listes some of our observations and the sketch their proofs.
 
 \begin{figure}[htbp]
 	\centering
-	\label{fig:logistic bifurcation overview}
 	\includegraphics[width=\textwidth]{./figures/l_bifurcation_overview.png}
 	\caption{For each $\lambda \in [0,1]$, $x_0$ is set to $0.5$, and the value of each iteration of $x_{n+1} = L_{\lambda}(x_n)$ was plotted at the coordinate $(\lambda, x_{n+1})$ as a faint blue dot. 
 	The first 100 iteration was discarded, and 1500 iterations were plotted for each value of $\lambda$.}
+	\label{fig:logistic bifurcation overview}
 \end{figure}
 
 \begin{figure}[htbp]
 	\centering
-	\label{fig:logistic_bifurcation_zoom_1}
 	\includegraphics[width=\textwidth]{./figures/l_bifurcation_zoom_1.png}
 	\caption{Zooming in the figure \ref{fig:logistic bifurcation overview} at the interval $0.5 \leq \lambda \leq 1$.}
+	\label{fig:logistic_bifurcation_zoom_1}
 \end{figure}
 
-% TODO: caption non finished
 \begin{figure}[htbp]
 	\centering
-	\label{fig:logistic_bifurcation_zoom_2}
 	\includegraphics[width=\textwidth]{./figures/l_bifurcation_zoom_2.png}
-	\caption{Zooming in the figure \ref{fig:logistic bifurcation overview} at the interval $0.5 \leq \lambda \leq 1$.}
+	\caption{Zooming in the figure \ref{fig:logistic bifurcation overview} at the interval $0.85 \leq \lambda \leq 9$.}
+	\label{fig:logistic_bifurcation_zoom_2}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{./figures/l_bifurcation_zoom_3.png}
+	\caption{Zooming into figure \ref{fig:logistic bifurcation overview} in chaotic region}
+	\label{fig:logistic_bifurcation_zoom_3}
 \end{figure}
 
 \begin{observation}[Logistic Bifurcation]\label{th:logistic_bifurcation}
-	Let $f_{\lambda} = \lambda 4x(1-x) $ be the logistic function with a parameter $\lambda$, which takes value from $0$ to $1$. 
-	Notice the $f_{;}$ attains the unique maximum 1 at $\mx = \frac{1}{2}$, and $f_{\lambda}(\mx) = \lambda$.
-	Let $x_0 \in [0,1]$ and generate sequence of $x_i$ such that $x_{i+1} = f_{\lambda}(x_i)$.
-	The behavior of $x_i$ varies as $\lambda$ increases from 0 to 1. Let $0 < B_0 < B_1 < \cdots < B_{\infty} < 1$ be the value of $\lambda$ at which the behavior of $x_i$ changes.
+	Let $L_{\lambda} = \lambda 4x(1-x) $ be the logistic function as defined in \ref{eq_logistic}.
 
 	\begin{enumerate}
-		\item For all $0 < \lambda < B_0$, $x_i$ has a unique and stable one cycle at $x=0$.
-		\item For all $B_0 <\lambda < B_1 = \frac{3}{4}$, the one cycle at $x=0$ is no longer stable, but a new stable one-cycle were developped.
-		\item When $\lambda = \mx = \frac{1}{2}< B_1$, the one circle attains superstability. Define $A_1 = \mx$ .
-		\item When $\lambda > B_2$, the one cycle is no longer stable. Precisely at the point when the one cycle fails to be stable, a stable two cycle appears.
-		\item At some $B_2 <A_2 < B_3$ the 2 cycle enjoys superstability, and one of the value of the $2$ cycle must be $\mx$.
-		\item Similar trends continue. When $\lambda > B_k$, the previous $2^{k-2}$ cycle becomes unstable and a new stable $2^{k-1}$ cycle were developped. One of the value of the cycle must be $\mx$ at some $\lambda, B_k <\lambda < B_{k+1}$, and at this point the cycle enjoys superstability.
-		\item $B_{\infty} < 1$, and for most of the value after $B_{\infty}$ $x_i$ behaves. 
-		\item Specifically, at $\lambda = 1$, $x_i$ has chaotic behavior defined in TODO
-	\end{enumerate}
+		\item For $0 < \lambda < a_0 = \frac{1}{4}$, the system has one unique fixed point at $x = 0$. \label{log_fix_0}
 
+		\item For $a_0 <\lambda < a_1 = \frac{3}{4}$, the fixed at $x=0$ is no longer stable, but a new stable one-cycle were developped. \label{log_fix_1}
+
+		\item When $\lambda$ becomes greater than some value $a_2$, the one cycle is no longer stable. 
+		Precisely at the point when the one cycle fails to be stable, a stable two cycle appears. 
+		Similarly, the 2 cycle will bifurcated into 4 cycles at $a_3$, $2^n$ cycle to $2^{n+1}$ cycle etc, until $\lambda > a_{\infty}$. 
+		\label{log_periodic_doubling}
+		\item Specifically, for any $\lambda$ there is at most one set of stable orbits. \label{log_at_most_one_stable_orbit}
+
+		\item Let $[a, b]$ be a window of stable orbit of period $n$.
+		There exists $\epsilon \in [a, b]$ such that $L_{\epsilon}^n(0.5) = 0.5$. 
+		This is the intuitive observation that every orbit must cross the line $x = 0.5$, as shown in figure \ref{fig:logistic_bifurcation_zoom_1} and \ref{fig:logistic_bifurcation_zoom_2}. \label{log_cross_half}
+
+	\item \label{log_simul_stable_or_unstable}
+		Assume for certain $\lambda$ there is an $n$ cycle. That is, there exists distinct $x_1, \cdots, x_n$ such that $\L(x_1) = \L(x_2), \L(x_2) = \L(x_3) \cdots \L(x_n) = \L(x_1)$.
+		Then necessarily $x_1, \cdots, x_n$ are $n$ fixed points of $\L^n$. 
+		These $n$ distinct fixed point for $\L^n$ and $\lambda$ must be simultaneously attacting fixed points or repelling fixed points, possibly except for a set of measure zero.
+
+		\item  \label{log_chaos_at_1}
+			When $\lambda = 1$, the map exhibit chaotic behavior defined in \ref{def:Devaney_definition_for_chaos}. 
+	\end{enumerate}
 \end{observation}
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./figures/logistic_map_around_bifurcation.png}
+	\caption{
+		$\L, \L^2$ and function $y=x$ are graphed and zoomed in around the fixed point for $\lambda = 0.75$ and $\lambda = 0.78$, where bifurcation takes place.
+		For $\lambda < 0.75$, as can be seen from figure \ref{fig:logistic_bifurcation_zoom_1}, the system as a unique stable point,
+		which loses its stability and a stable two orbit appears after $\lambda$ just increases above $0.75$.
+		This is because, as shown on the right, precisely when the stable fixed point became unstable, the graph of $\L^2$ will have two more intersection with the line $y=x$, which becomes the stable two orbit.
+	}
+	\label{fig:point_of_bifurcation1}
+\end{figure}
+
+\begin{proof}[Proof of \ref{th:logistic_bifurcation}.\ref{log_fix_0} and \ref{th:logistic_bifurcation}.\ref{log_fix_1}]
+	The fix point for $\L(x)$ is exactly the solution of the equation $\L(x) = x$, which are $x_0 = 0$ and $x_1 = 1 - \frac{1}{4\lambda}$. 
+	$|L_{\lambda}(x_0) | = 4 \lambda < 1$ for $0 < \lambda < \frac{1}{4}$, so by theorem \ref{th:_stable_unstable_fixed_point} in these interval $x_0$ is a stable fixed point.
+	Arguments for $x_1$ is similar.
+\end{proof}
+
+
+\begin{proof}[Demonstration of \ref{th:logistic_bifurcation}.\ref{log_periodic_doubling}]
+	The proof of this phenomenon again exploits theorem \ref{th:_stable_unstable_fixed_point}.
+
+	Let us concentration on $\lambda^*$ at which the fixed point $a$ becomes unstable, that is $L_{\lambda*}' a  = - 1$ and when for any $\lambda > \lambda^*$, the derivative at the fixed point being smaller than $-1$, thus $a$ becomes an unstable fixed point. (This observation is made obvious in figure \ref{fig:point_of_bifurcation1}.)
+	Necessarily, $\frac{d}{dx}L_{\lambda^*}^2 a = L'_{\lambda^*}(a) \cdot L'_{\lambda^*}(a) = 1$,
+	and for any $\lambda > \lambda^*$, $\frac{d}{dx}L_{\lambda}^2a'> 1$, where $a'$ is the new fixed point.
+
+	Since $\frac{d}{dx}L_{\lambda}^2(a') > 1$ for some $\delta > 0$, $\L^2(a' - \delta) < a' - \delta$, and $\L^2(a' + \delta) > a' + \delta$. 
+	Observe that $\L^2(1) = 0 < 1$, so by intermediate value theorem there must be some point $b > a' + \delta$ such that $\L^2(b) = b$. 
+	Around $a'$ $L^2$ is concaving upwards, meaning its derivative is decreasing, this means that $\frac{d}{dx }L_{\lambda}^2(b) < 1$,
+	and we can pick some $\lambda$  close to $\lambda ^*$ such that $-1<\frac{d}{dx }L_{\lambda}^2(b) < 1$, and at this point $b$ is a stable fixed point of $L_{\lambda}^2$.
+	The argument for the other fixed point smaller than $a'$ is similar. 
+
+	Although our arguments are qualitative, it can be made precise and rigourous by the use of Schwarzian derivative, as shown in chapter 12 of \cite{Devaney_green_book_chaos_definition}.
+\end{proof}
+
+\begin{proof}[Demonstration of \ref{th:logistic_bifurcation}.\ref{log_at_most_one_stable_orbit}]
+	This follows from the previous point, but also stems from the fact that $\L^n$ is a function of negative Schwarzian derivative with bounded interval for stable points.
+	The number of stable orbits of such maps must not exceed the number of critical points.
+
+	This fact is proved in \cite{Pierre_Collet} and in chapter 11 of \cite{Devaney_green_book_chaos_definition}.
+\end{proof}
+
+\begin{proof}[Proof of \ref{th:logistic_bifurcation}.\ref{log_cross_half}]
+	As shown in theorem \ref{th:_stable_unstable_fixed_point}, a fixed point $x$ of the iterated map $f$ will be stable if $|f'(x)| < 1$ and unstable if $|f'(x)| > 1$.
+	By chain rule, 
+	$\frac{d}{dx}\L^2 (x) = \L'(\L(x))\L'(x)$, and similarly
+	$$
+		\frac{d}{dx} L_{\lambda}(x)^n = \L'(x)\prod_{i=1}^{n-1} L_{\lambda}'(L_{\lambda}^i(x))
+	$$
+
+	Since $x_0 = 0.5$ is the local maximum of $\L(x)$, the above equation shows that at $x_0 = 0.5$ $\frac{d}{dx} \L^n(x) = 0$ for all $n$.
+	This means if $x_0$ is a fixed point of $\L^n(x)$, it will necessarily be stable. 
+	
+	To show that for each $n$, there exist a $\lambda$ such that $\L^n(x_0) = x_0$ is straightforward. 
+	Notice at $\lambda = 0, \L^n(0.5) = 0$, and at $\lambda = 1, \L^n(0.5) = 1$.
+	$\L^n(x)$ is a continuous function when regarding as a function of $\lambda$, so by intermediate value theorem there must be some $\lambda$ such that $\L^n(0.5) = 0.5$.
+\end{proof}
+
+\begin{proof}[Proof of \ref{th:logistic_bifurcation}.\ref{log_simul_stable_or_unstable}]
+		Assuming there exists distinct $x_1, \cdots, x_n$ such that $\L(x_1) = \L(x_2), \L(x_2) = \L(x_3), \cdots $, and $\L(x_n) = \L(x_1)$.
+
+		Differentiate $\L^n$ and evalute at $x_1$ 
+		$$
+		\frac{d}{dx} \L^n(x_1) = \prod_{i=1}^n \L'(x_i)
+		$$
+
+		Indeed evaluting at any other $x_i$ gives the same value. 
+		So except for a set of $\lambda$ such that $\frac{d}{dx} \L^n(x_1) = \pm 1$, these $n$ points regarding as fixed points of $\L^n$ must be simultaneously attracting or repelling fixed points by theorem \ref{th:_stable_unstable_fixed_point}.
+\end{proof}
+
+\begin{proof}[Proof of \ref{th:logistic_bifurcation}.\ref{log_chaos_at_1}]
+	The doubling map \eqref{eq:doubling_map} is topologically conjugate to $L_{1}$, so $L_1$ is chaotic.
+	This is proved in example \ref{ex_logistic_and_doubling}.
+\end{proof}
+
+\section{Feiganbaum's Constant}
+
+
 \section{Single Nodal Functions Give Rise to Bifurcations}
-
-It is very common for a mathematic model to consist, at least in parts, of iterations of some functions.
-For the sake of simplicity and generosity, assume the value of our interest is $x_i$ is modelled by the simple recursive relations $f$ with the parameter $\lambda$. With appropriate rescaling, we assume moreover $x_i \in [0,1], \lambda \in [0,1]$ and $f: [0,1] \rightarrow [0,1]$:
-
-\begin{equation}
-	x_{i+1}=\lambda f(x_i)
-\end{equation}
-The presice definition of $f$ and $\lambda$, of course, depend on the behavior of the object in interest and is not of our relevence here.
-
-%TODO: Is single nodal the correct term?
-% TODO: add figure single nodal function
-It may seem like nothing can be said by such a generalised model. However, with one more modest restriction that $f$ is single nodal, which just means the profile of $f$ is similar to figure TODO:, $x_i$ will exhibit the surprising structure of bifurcation, showing in figure (TODO: add figure)
-
-% TODO: what is the correct term of B_1 A_1 etc?
-\begin{thm}[Bifurcation]\label{th:general_bifurcation}
-	Let $f_{\lambda}: [0,1] \rightarrow [0,1] $ be a single nodal function with a parameter $\lambda$, which takes value from $0$ to $1$. 
-	Assume the $f_{1}$ attains the unique maximum 1 at $\mx$.
-	Let $x_0 \in [0,1]$ and generate sequence of $x_i$ such that $x_{i+1} = f_{\lambda}(x_i)$.
-	The behavior of $x_i$ varies as $\lambda$ increases from 0 to 1. Let $0 < B_0 < B_1 < \cdots < B_{\infty} < 1$ be the value of $\lambda$ at which the behavior of $x_i$ changes.
-
-	\begin{enumerate}
-		\item For all $0 <\lambda < B_1$, $x_i$ has a unique and stable one-cycle
-		\item When $\lambda = \mx < B_1$, the one circle attains superstability precisely at $\mx$. Define $A_1 = \mx$ .
-		\item When $\lambda > B_2$, the one cycle is no longer stable. Precisely at the point when the one cycle fails to be stable, a stable two cycle appears.
-		\item At some $B_2 <A_2 < B_3$ the 2 cycle enjoys superstability, and one of the value of the $2$ cycle must be $\mx$.
-		\item Similar trends continue. When $\lambda > B_k$, the previous $2^{k-2}$ cycle becomes unstable and a new stable $2^{k-1}$ cycle were developped. One of the value of the cycle must be $\mx$ at some $\lambda, B_k <\lambda < B_{k+1}$, and at this point the cycle enjoys superstability.
-		\item $B_{\infty} < 1$, and for most of the value after $B_{\infty}$ $x_i$ behaves. 
-		\item Specifically, at $\lambda = 1$, $x_i$ has chaotic behavior defined in TODO
-	\end{enumerate}
-
-\end{thm}
-
-Here is the precise definition for a function to be single nodal:
-
-% TODO: is a circle signle nodal? for all $\lambda$ the cicle has exactly on stable one-cycle. 
-% TODO: are there more examples like the circle? Or are there more examples of similar function that only exhibit finite Bifurcations?
 
 \begin{defn}
 	A function $f: [0,1] \rightarrow [0,1]$ is single nodal if 
@@ -219,5 +289,3 @@ Here is the precise definition for a function to be single nodal:
 
 	This definition is modified from appendix A of Feigenbuam's paper \cite{F1}.
 \end{defn}
-
-Although theorem \ref{th:general_bifurcation} may seem extremely bold in claim, 

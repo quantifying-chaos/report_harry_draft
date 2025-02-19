@@ -1,3 +1,40 @@
+\section{Introduction To Dynamics}
+
+\begin{defn}[Fixed Point]
+	Assuming we have a iterated dynamical system $x_{i+1} = f(x_i)$. 
+	The fix point of $f$ is a point $x^*$ such that $f(x^*) = x^*$. 
+	That is, the fixed points are the solution to the equation $f(x) = x$.
+\end{defn}
+
+Fixed points are like sinks in the dynamical system. 
+If for some $c$ there exists a $n$ such that $f^n(c) = x^*$, $c$ will stay at $x^*$ forever. 
+Our intuition tells us that the fixed points shall determine, at least in parts, the properties of the dynamical system.
+In deed, for some dynamical system $f = x$ for all $x \in I$, where $I$ is some interval, what takes place in that interval would not be so interesting.
+
+Many interesting dynamical system have infinitely many fixed point, but the set of fixe point is of measure zero, meaning if picking any point in the interval at random, there is a zero chance that it is a fixed point.
+Two traditional examples for a set of measure zero are rational points and cantor set on the real axis. 
+
+It may seem likely that if $x^*$ is a fixed point, nearby points would converge to $x^*$ after iteration.
+If this is the case $x^*$ is a \emph{stable} fixed point.
+Not all fixed points are stable, however, and it may happen that nearby points diverge from $x^*$ after iterations. 
+Fixed point with these property are called \emph{unstable}.
+
+This is rigorous definition for (lack of) stablility.
+\begin{defn}[Stable and unstable fixed point]
+	A fixed point $x^*$ is stable if there exists a neighbourhood $I$ containing $x^*$ such that for any $x \in I$, $\lim_{n \rightarrow \infty}f^n(x) = x^*$.
+\end{defn}
+Let us investigate the behavior of the dynamical systems nearby the fixed point.
+
+\begin{thm}[Stable and unstable fixed point]\label{th:_stable_unstable_fixed_point}
+	If $x^*$ is a fixed point of $f$ and $|f'(x^*)| < 1$, $x^*$ is a stable fixed point.
+	If $|f'(x^*)| > 1$, $x^*$ is an unstable fixed point.
+	If $|f'(x^*)| = 0$, $x^*$ may be stable or unstable.
+\end{thm}
+
+There are two canonical methods to prove this theorem, one by demonstration of Taylor expansion and the other by more traditional $\epsilon \delta$ argument of anaylsis.
+Hereby we present the second method.
+
+
 \section{Devaney's Definition}
 
 \begin{defn}[Topologically Transitive]
@@ -16,8 +53,9 @@
 \end{defn}
 
 \begin{defn}[Sensitive Dependence on Initial Condition]
-	Let $J$ be a metric space with the metric $d: J \times J \rightarrow \bb{R}$.
+	This term is coined by Ruelle \cite{Ruelle-1978}.
 
+	Let $J$ be a metric space with the metric $d: J \times J \rightarrow \bb{R}$.
 	$f: J \rightarrow J$ has sensitive dependence on initial condition if there exists some $\delta > 0$ such that for all $x \in J$ and any neighbourhood $X$ containing $x$, there exists $y \in X$ and $n \in \bb{N}$ such that $d(f^n(x), f^n(y)) > \delta$.
 \end{defn}
 
@@ -50,13 +88,13 @@ As a result, we only need to check the first two conditions to determine if a fu
 
 \begin{example}\label{ex_doubling_map}
 	Recall the doubling map $f: [0,1) \rightarrow [0,1)$
-	$$
+	\begin{equation}\label{eq:doubling_map}
 	f(x) = 
 		\begin{cases}
 			2x &\text{ if } 2x < 1 \\
 			2x -1 &\text{ if } 2x > 1
 		\end{cases}
-	$$
+	\end{equation}
 	% TODO: more explanation
 	This map can also be regarded as doubling the angles on the unit cycle: $g: S^1 \rightarrow S^1$ given by $ g(\theta) = 2 \theta$.
 	
@@ -226,7 +264,7 @@ There are abundant examples of topological conjugacy.
 	Example \ref{ex_doubling_map} shows that the doubling map is chaotic, so is $g$.
 \end{example}
 
-\begin{example}\label{ex_logistic_at_4}\label{ex_logistic_and_doubling}
+\begin{example}\label{ex_logistic_and_doubling}
 	The above 3 examples shows that the doubling map is semi-conjugate to the logistic map $L_1(x) = 4x(1-x)$.
 \end{example}
 

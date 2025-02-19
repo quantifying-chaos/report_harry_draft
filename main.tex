@@ -5,14 +5,21 @@
 \begin{document}
 % \pagenumbering{roman}
 \maketitle
-\tableofcontents
+\input{abstract.tex}
+\declaration
+\dedication{Musa mihi causas memora ...\\
+	Muse, tell me the cause...
+}
 
+\tableofcontents
 
 \chapter{Bifurcations in Discrete Dynamical Systems}
 \input{logistic_map.tex}
 
 \chapter{Chaos With Rigour}
-\input{rigorous_chaos.tex}
+\input{chaos_with_rigor.tex}
 
+% \bibliographystyle{...} 
 \printbibliography
+\addcontentsline{toc}{chapter}{Bibliography}
 \end{document}
