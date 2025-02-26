@@ -1,32 +1,34 @@
 \section{The Logistic Map as Model for Population Growth}
 
 One dimensional recursive equations $x_{n+1} = f(x_n)$ are used for modeling various dynamical systems. 
-Its simplicity makes it easy to study, and many of its properties are also inherited by their more complicated counterparts.
+Notwithstanding its simplicity, many of these maps exhibit extremely complicated dynamical systems, which are also presents in their more complicated counterparts.
 
 Consider, for example, bacteria population in discrete time intervals. 
-If the population is low and resource abundant, the rate of growth is in porportion to the population, which give rise to the following equation
+If the population is low and resource abundant, the rate of growth is in proportion to the population, which gives rise to the following equation
 
-$$
+\begin{equation}\label{eq:1d iterative map}
 p_{t+1} = p_{t} b,
-$$
-where $p_{t}$ is the population of the bacteria at the dicrete time $t$ and $b$ as a constant is the static birth rate for bacteria whose value will depend on the model.
+\end{equation}
 
-The limited resource will slow down the rate of growth as the population increases, and the the relation will become 
+where $p_{t}$ is the population of the bacteria at the discrete time $t$ and $b$, as a constant, is the static birth rate for bacteria whose value will depend on the model.
 
-$$
+The limited resource will slow down the rate of growth of the bacteria as the population increases, and the the relation will become 
+
+\begin{equation}\label{eq:p times beff}
 	p_{t+1} =  p_{t} \be
-$$
+\end{equation}
 
-The usual assumption is that $\be$ is close to $b$ when the population is low, and there is a threshold which the population will never surpass. At the threshold $\be$ will be zero.
+The usual assumption is that $\be$ is close to $b$ when the population is low, and there is a threshold above which the population will decrease. 
+At the threshold $\be$ will be zero.
 
 The simplest equation for modelling $\be$ is the linear equation
 
-$$
+\begin{equation} \label{eq:b_effective}
 \be = b - ap,
-$$
+\end{equation}
 
-where $a$ is another constant.
-Combining the two, the recursive formula becomes 
+where $a$ is another constant depending on the model.
+Combining the equations \eqref{eq:p times beff} and \eqref{eq:b_effective}, the recursive formula becomes 
 
 $$
 p_{t+1}  = b p_t - ap_t^2
@@ -38,7 +40,7 @@ $$
 x_{t+1} = 4 \lambda x_t(1-x_t) 
 $$
 
-Indeed, thence come the standard forms of the logistic map
+Thence come the standard forms of the logistic map
 
 \begin{equation}\label{eq_logistic}
 	L_{\lambda}(x) = 4 \lambda x(1-x)
@@ -63,8 +65,8 @@ Scrutinising the class of discrete logistic functions plotted in figure \ref{fig
 	\item When $0 \leq \lambda$ and $x$ is restricted to the domain $[0, 1]$, $\L(x)$ is a two-to-one non-surjective (except for $\lambda = 1$) function $\L(x): [0,1] \rightarrow [0,\lambda]$. 
 \end{enumerate}
 
-Some sources defined the logistic map as $L'_{\lambda'}(x) = \lambda' x(1-x)$ without the constant 4. 
-In this report, however, we will use equation \ref{eq_logistic}, which has the advantage that the maximum value attained by $\L(x)$ is $\lambda$. This notation will also be consistent to the definitions of other class of functions discussed later in the report.
+Some sources defined the logistic map as $L^*_{\lambda}(x) = \lambda x(1-x)$ without the constant 4. 
+In this report, however, we will use equation \ref{eq_logistic}, which has the advantage that the maximum value attained by $\L(x)$ at $\frac{1}{2}$ is $\lambda$, and it will also be consistent to the definitions of other class of functions discussed later in the report.
 
 We can check if this model would work as expected by comparing it to its continuous counterpart 
 
@@ -72,29 +74,31 @@ We can check if this model would work as expected by comparing it to its continu
 	\frac{dp}{dx} = c p(x) (1-p(x)),
 \end{equation}
 
-whose unique solution with the initial condition $p(0) = \frac{1}{2}$ is 
+where $c$ is some arbitrary constant denoting the rate of growth. 
+The unique solution to this ordinary differential equation with the initial condition $p(0) = \frac{1}{2}$ is 
 
 $$
 p(x) = \frac{e^{cx}}{1+e^{cx}}
 $$
 
-\begin{figure}[b!]
+\begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{./figures/con_vs_discrete_logistic_map.png}
-	\caption{Discrete (left) v.s. continuous (right) logisitc map. Discrete case is modeld by $\lambda = 0.5$ and $x_0 = 0.0003$. The continuous case has $c=1$.}
+	\caption{The population of the bacteria modelled by the discrete (left) v.s. continuous (right) logistic map. 
+	The discrete case is modeled by $\lambda = 0.5$ and $x_0 = 0.0003$, and the continuous case has $c=1$.}
 	\label{fig:con_vs_discrete}
 \end{figure}
 
-The graph of these two maps are shown in figure \ref{fig:con_vs_discrete}.
-The population of the discrete case was obtained by setting an arbitrary initial value, here $x_0 = 0.0003$, and the population of the next time interval was obtained by simple iteration of the logistic map, that is $x_{i+1} = L_{\lambda}(x_i)$.
-For the continuous case the population at each time was obtained by solving the differential equation with initial condition.
-Indeed, at least for the selected value of $\lambda$ and $c$, the population modeld by the two maps are similar.
+The graph of the population modeled by \eqref{eq_logistic} and \eqref{eq_logistic_continuous} are shown in figure \ref{fig:con_vs_discrete}.
+Indeed, at least for the selected value of $\lambda$ and $c$, the population modeled by the two maps are similar.
 
-Having settled that the discrete logistic map is indeed, at least for some values of $\lambda$, a good simplification for the already-simplified equation \ref{eq_logistic_continuous} as a model for population growth, you may wondered why bother studying such a simple equation. 
-The reason is, as simple as it seems, the iteration of equation \ref{eq_logistic} gives rise to some extremely complicated dynamical systems with many surprising properities. 
+Having settled that the discrete logistic map is a good simplification for the already-simplified equation \ref{eq_logistic_continuous} as a model for population growth, you may wondered why bother studying such a simple equation. 
+The reason is, as simple as it seems, the iteration of equation \ref{eq_logistic} gives rise to some extremely complicated dynamical systems with many surprising properties. 
 These interesting dynamics are also observed in the continuous case and is the study of the next session.
 
-% graph produced by logistic_vs_continuous_modelling_population
+It shall be stressed that, at the end of this session before we go in depth into the theoretical discussions, no impression shall be made to assume one dimensional discrete iterative maps are only useful as a crude model for bacteria population growth. 
+There are abundant examples where equation \eqref{eq:1d iterative map} can be used, some upto a strikingly high accuracy. 
+For example, in genetics when investigating on the frequency of the genotype \cite{genotype}, in economics modelling the relationship between commodity quantity and price \cite{economics}, and in social science on the propagation of rumors \cite{social_science}, among many others.
 
 
 \section{Logistic Bifurcations}
@@ -120,54 +124,52 @@ For $\lambda = 0.9$ and $\lambda = 1$, it is not clear that if $x_n$ has any sta
 A rigorous topological definition for chaos will be provided in the following session. 
 % TODO: add which session
 
-For all cases it seems like any initial condtion, $x_0$, upon iteration, will eventually tend to some common dynamical behavior depending only on $\lambda$.
-The scatter plot, figure \ref{fig:logistic bifurcation overview}, is produced to capture the behavior of $x_n$ as $n \rightarrow \infty$ for $0 \leq \lambda \leq 1$. 
-Two zoomed in figure around the area of interests are also produced in figure \ref{fig:logistic_bifurcation_zoom_1} and \ref{fig:logistic_bifurcation_zoom_2}.
+For all cases it seems like any initial condition, $x_0$, upon iteration, will eventually tend to some common dynamical behavior depending only on $\lambda$.
+The scatter plot, figure \ref{fig:logistic bifurcation overview}, is produced to capture the behavior of $x_n$ as $n \rightarrow \infty$ for various intervals of $\lambda$, showing the overview on top left and zoomed in view for several region of interest.
+These graphs are produced by picking a random $x_0 \in [0,1]$, iterating thousands of times and by setting $x_{n+1} = \L(x_n)$, ignoring the first several hundred iterations, and plotting the rest of $x_i$ on the coordinate $(x_i, \lambda)$ for each $\lambda$ as a faint blue dot.
 
 These pictures are indeed spectacular. 
 For $\lambda$ between $0$ and $a_0 = 0.25$, there is a stable fixed point $x = 0$.
 When $\lambda$ increases and become greater than $a_1 = 0.75$, $0$ no longer the stable fixed point, but there is another unique stable fixed point elsewhere.
 Precisely when this stable fix point becomes unstable around $\lambda = a_2 \approx 0.77$, a stable two cycles appears.
 The stable two cycle, again, disappeared around $\lambda = a_3 \approx 0.86$, at which point a stable 4 cycles appears. 
-This periodic doubling of orbits, which seems to continue indefinitely, is called bifurcation. 
-Upon a closer inspections on figure \ref{fig:logistic_bifurcation_zoom_1} and figure \ref{fig:logistic_bifurcation_zoom_2}, each stable orbit seems to be self-similar, and all stable orbit cross the line $y = 0.5$ for some $\lambda$.
+This process of periodic doubling of the stable orbit, which seems to continue indefinitely, is called bifurcation. 
+Upon a closer inspections on the sub-figures of figure \ref{fig:logistic bifurcation overview} zoomed around the windows of bifurcation, each stable orbit and bifurcation pattern seems to be self-similar, and all stable orbit cross the line $y = 0.5$ for some $\lambda$.
 
 Bifurcation, however, does not exhaust the whole spectrum of $[0,1]$, and $a_{n}$ seems to converge to some limit as $n \rightarrow \infty$. 
 Label this limit as $a_{\infty}$.
 For $\lambda > a_{\infty}$, there are no longer any obvious pattern and the overall behavior is best described as chaotic. 
 Nevertheless, in this chaotic region there are windows for stable orbits of odd periods which are not observed for $\lambda < a_{\infty}$. (The term window describing an interval of $\lambda$ for which stable orbit orbit exists is introduced by May \cite{May_Nature}.)
-Examples are $\lambda \approx 0.957$ for a 3-cycle and $\lambda \approx 0.934$ for a 5-cycle in figure \ref{fig:logistic_bifurcation_zoom_3}.
+Examples are $\lambda \approx 0.957$ for a 3-cycle and $\lambda \approx 0.934$ for a 5-cycle.
 
-The following paragraph listes some of our observations and the sketch their proofs.
+Before moving to full mathematic mode and start proving, for the last time in this report we shall look back to the real world. 
+As will be shown in the next session, bifurcation is not unique to logistic map but is a common behaviour for a large class of functions sharing very moderate restrictions. 
+Many real world systems, such as population and density of genotype, which can be modeled by one dimensional iterative maps, exhibit dramatic variations in quantity respective to time \cite{colorado_potato_beetle}.
+This behavior has baffled the biologists, many of whom have attributed the cause to the inaccuracy of measurements and perturbations from the environment. 
+The fact that bifurcation is a universal phenomenon for iterative maps, however, may suggest that these variations may be due to the inherent nature of the system itself \cite{genotype}.
+
+
+The following paragraph lists some of the key observations of bifurcation and the sketches their proofs.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\textwidth]{./figures/l_bifurcation_overview.png}
-	\caption{For each $\lambda \in [0,1]$, $x_0$ is set to $0.5$, and the value of each iteration of $x_{n+1} = L_{\lambda}(x_n)$ was plotted at the coordinate $(\lambda, x_{n+1})$ as a faint blue dot. 
-	The first 100 iteration was discarded, and 1500 iterations were plotted for each value of $\lambda$.}
+	\includegraphics[width=\textwidth]{./figures/logistic.png}
+	\caption{
+		The graph of logistic bifurcation.
+		Each of the subfigure was produced by iterating the logistic map $\L$ with random starting value $x_0$ to obtain $x_{n+1} = \L(x_n)$ etc., discarding the first several hundred values, and graph each of the subsequent values as a faint, semi-transparent blue dot at the coordinate $(x, \lambda)$.
+		The graph on upper left is the overview of logistic bifurcation on the interval $0 \leq \lambda \leq 1$; upper right and lower right zoomed into the area of periodic doubling, recording $0.7 \leq \lambda \leq 1$ and $0.85 \leq \lambda \leq 0.9$ respectively; lower right is a zoomed in view of the chaotic region for $ 0.91 \leq \lambda \leq 0.97$. 
+	}
 	\label{fig:logistic bifurcation overview}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{./figures/l_bifurcation_zoom_1.png}
-	\caption{Zooming in the figure \ref{fig:logistic bifurcation overview} at the interval $0.5 \leq \lambda \leq 1$.}
-	\label{fig:logistic_bifurcation_zoom_1}
+	\includegraphics[width=\textwidth]{./figures/logistic_bifurcation_log_scale.png}
+	\caption{Focusing on the logistic bifurcation with logarithmic scale.}
+	\label{fig:Logistic bifurcation log scaled}
 \end{figure}
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{./figures/l_bifurcation_zoom_2.png}
-	\caption{Zooming in the figure \ref{fig:logistic bifurcation overview} at the interval $0.85 \leq \lambda \leq 9$.}
-	\label{fig:logistic_bifurcation_zoom_2}
-\end{figure}
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{./figures/l_bifurcation_zoom_3.png}
-	\caption{Zooming into figure \ref{fig:logistic bifurcation overview} in chaotic region}
-	\label{fig:logistic_bifurcation_zoom_3}
-\end{figure}
 
 \begin{observation}[Logistic Bifurcation]\label{th:logistic_bifurcation}
 	Let $L_{\lambda} = \lambda 4x(1-x) $ be the logistic function as defined in \ref{eq_logistic}.
@@ -183,9 +185,15 @@ The following paragraph listes some of our observations and the sketch their pro
 		\label{log_periodic_doubling}
 		\item Specifically, for any $\lambda$ there is at most one set of stable orbits. \label{log_at_most_one_stable_orbit}
 
-		\item Let $[a, b]$ be a window of stable orbit of period $n$.
+		\item \label{log_cross_half} 
+		Let $[a, b]$ be a window of stable orbit of period $n$.
 		There exists $\epsilon \in [a, b]$ such that $L_{\epsilon}^n(0.5) = 0.5$. 
-		This is the intuitive observation that every orbit must cross the line $x = 0.5$, as shown in figure \ref{fig:logistic_bifurcation_zoom_1} and \ref{fig:logistic_bifurcation_zoom_2}. \label{log_cross_half}
+		This is the intuitive observation that every orbit must cross the line $x = 0.5$, as shown in the zoomed in view of the bifurcation in figure \ref{fig:logistic bifurcation overview}.
+		\item \label{log_closest_branch}
+		Observing figure \ref{fig:logistic bifurcation overview} of the bifurcation pattern in a windows of $2^n$ stable orbits. 
+		The previous observation states that there exists a certain $\lambda$ such that $0.5$ is part of the stable orbit, that is $L_{\lambda}^{2^n}(0.5) = 0.5$.
+		There is another orbit closest to $0.5$, which spawned from the same bifurcation point.
+		The value of this point is $\L^{2^{n-1}}(0.5)$.
 
 	\item \label{log_simul_stable_or_unstable}
 		Assume for certain $\lambda$ there is an $n$ cycle. That is, there exists distinct $x_1, \cdots, x_n$ such that $\L(x_1) = \L(x_2), \L(x_2) = \L(x_3) \cdots \L(x_n) = \L(x_1)$.
@@ -209,13 +217,20 @@ The following paragraph listes some of our observations and the sketch their pro
 	\label{fig:point_of_bifurcation1}
 \end{figure}
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\textwidth]{./figures/logistic_map_around_bifurcation_2.png}
+	\caption{Showing $\L^2, \L^4$ and $y=x$ close to one point of second bifurcation similar to figure \ref{fig:point_of_bifurcation1}}
+	\label{fig:point_of_bifurcation2}
+\end{figure}
+
 \begin{proof}[Proof of \ref{th:logistic_bifurcation}.\ref{log_fix_0} and \ref{th:logistic_bifurcation}.\ref{log_fix_1}]
 	The fix point for $\L(x)$ is exactly the solution of the equation $\L(x) = x$, which are $x_0 = 0$ and $x_1 = 1 - \frac{1}{4\lambda}$. 
 	$|L_{\lambda}(x_0) | = 4 \lambda < 1$ for $0 < \lambda < \frac{1}{4}$, so by theorem \ref{th:_stable_unstable_fixed_point} in these interval $x_0$ is a stable fixed point.
 	Arguments for $x_1$ is similar.
 \end{proof}
 
-
+% TODO: This prove needs improvements
 \begin{proof}[Demonstration of \ref{th:logistic_bifurcation}.\ref{log_periodic_doubling}]
 	The proof of this phenomenon again exploits theorem \ref{th:_stable_unstable_fixed_point}.
 
@@ -229,7 +244,12 @@ The following paragraph listes some of our observations and the sketch their pro
 	and we can pick some $\lambda$  close to $\lambda ^*$ such that $-1<\frac{d}{dx }L_{\lambda}^2(b) < 1$, and at this point $b$ is a stable fixed point of $L_{\lambda}^2$.
 	The argument for the other fixed point smaller than $a'$ is similar. 
 
-	Although our arguments are qualitative, it can be made precise and rigourous by the use of Schwarzian derivative, as shown in chapter 12 of \cite{Devaney_green_book_chaos_definition}.
+	All of our arguments above are qualitative, involving only the signs of the derivative and second derivative. 
+	Restricting our attention to a neighbourhood of $L^2$ around the point of second bifurcations, all of our above arguments can be applied to $L^2$ and $L^4$. 
+	This is the intuition why the bifurcation would continue indefinitely.
+	
+
+	Our arguments are qualitative, which can be made precise and rigourous by the use of Schwarzian derivative, as shown in chapter 12 of \cite{Devaney_green_book_chaos_definition}.
 \end{proof}
 
 \begin{proof}[Demonstration of \ref{th:logistic_bifurcation}.\ref{log_at_most_one_stable_orbit}]
@@ -238,6 +258,7 @@ The following paragraph listes some of our observations and the sketch their pro
 
 	This fact is proved in \cite{Pierre_Collet} and in chapter 11 of \cite{Devaney_green_book_chaos_definition}.
 \end{proof}
+
 
 \begin{proof}[Proof of \ref{th:logistic_bifurcation}.\ref{log_cross_half}]
 	As shown in theorem \ref{th:_stable_unstable_fixed_point}, a fixed point $x$ of the iterated map $f$ will be stable if $|f'(x)| < 1$ and unstable if $|f'(x)| > 1$.
@@ -255,6 +276,11 @@ The following paragraph listes some of our observations and the sketch their pro
 	$\L^n(x)$ is a continuous function when regarding as a function of $\lambda$, so by intermediate value theorem there must be some $\lambda$ such that $\L^n(0.5) = 0.5$.
 \end{proof}
 
+\begin{proof}[Demonstration of \ref{th:logistic_bifurcation}.\ref{log_closest_branch}]
+	Assuming $a_0$ is one of the points in a stable $2^{n-1}$ orbits, then $\L^{2^{n-1}}(a_0)=a_0$ for $\lambda$ in its window.
+	As $\L(x)$ is a continuous function of both $x$ and $\lambda$, small perturbations of $\lambda$ will result in small perturbations of $\L^{2^{n-1}}(a_0)$, so, after $\lambda$ increase beyond the window for $2^{n-1}$ orbit and $\L^{2^{n-1}}(a_0) \neq a_0$, but its value shall still stay close to $a_0$.
+\end{proof}
+
 \begin{proof}[Proof of \ref{th:logistic_bifurcation}.\ref{log_simul_stable_or_unstable}]
 		Assuming there exists distinct $x_1, \cdots, x_n$ such that $\L(x_1) = \L(x_2), \L(x_2) = \L(x_3), \cdots $, and $\L(x_n) = \L(x_1)$.
 
@@ -268,24 +294,104 @@ The following paragraph listes some of our observations and the sketch their pro
 \end{proof}
 
 \begin{proof}[Proof of \ref{th:logistic_bifurcation}.\ref{log_chaos_at_1}]
-	The doubling map \eqref{eq:doubling_map} is topologically conjugate to $L_{1}$, so $L_1$ is chaotic.
+	The doubling map \eqref{eq:doubling_map} is topologically conjugate to $L_{\lambda}$, where $\lambda = 1$, so $L_{\lambda}$ is chaotic.
 	This is proved in example \ref{ex_logistic_and_doubling}.
 \end{proof}
 
-\section{Feiganbaum's Constant}
+\section{Feigenbaum's Constant}
 
+Another striking observation from figure \ref{fig:logistic bifurcation overview} and \ref{fig:Logistic bifurcation log scaled} is that the overall shape of the graph exhibit some kind of fractal structure that is \emph{self similar}.
+If only focusing on one branch of bifurcation and disregarding the coordinates, the shape of each bifurcation is similar to any other up to enlongation and stretching, including the branches bifurcated out from itself.
+ 
+ This observation is crucial to many of the properties of interated maps and leads naturally to the conjecture that each bifurcation is scaled down from its parent. 
+
+ There are two ways we can quantify this self-similarity: the spacing between each bifurcation points, and the distance between the superstability point and the point closest to it in the stable orbit. 
+ In either case we can compute numerically the values of $x$ and $\lambda$ and quantify this self-similarity.
+
+ Numerical computation of the bifurcation point is difficult, as near the bifurcation point the iterated maps converges very slowly.
+ Instead, we can compute the point of superstability where the rate of the convergence is fastest by using theorem \ref{th:logistic_bifurcation}.\ref{log_cross_half} which states that each of the bifurcation cycle must cross $0.5$ where it achieve superstability ($\frac{d}{dx}\L^{2^n}(0.5) = 0$).
+In this report we will label the value of $\lambda$ as $a_0$ at which the superstability point of $2^n$ cycle is attained.
+Once $a_n$ are known, we can use theorem \ref{th:logistic_bifurcation}.\ref{log_closest_branch} to measure the distance between the superstability point and the closest point in the bifurcation cycle. The distances are labelled as $d_n$.
+
+The values of $a_n$ and $d_n$ are shown in table \ref{tab:feigenbuam_alpha_table_for_logistic}. 
+The observation is clear:
+$\frac{a_{n+1}-a_n}{a_{n+2}-a_{n+1}}$ approaches approximately $2.503$ as $n \rightarrow \infty$, and $\frac{d_n}{d_{n+1}}$ approaches approximately $4.668$ as $n \rightarrow \infty$. 
+The former is known as Feigenbaum's constant $\delta \approx 4.6692016091023$, the latter Feigenbaum's constant $\alpha \approx 2.5029078750957$ \cite{F1}.
+The reason these constants are worth such as denominations is that they are \emph{universal}, as will be discussed in the next session.
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\( n \) & \( a_n \) & \( d_n \) & \(\frac{a_{n+1} - a_n}{a_{n+2} - a_{n+1}}\) & \(\frac{d_n}{d_{n+1}}\) \\ \hline
+0 & 0.500000 & 0.309017 & 2.65492 & 4.70919 \\ \hline
+1 & 0.8090170 & 0.116394 & 2.53187 & 4.67967 \\ \hline
+2 & 0.8746370 & 0.045972 & 2.50879 & 4.66287 \\ \hline
+3 & 0.8886594 & 0.018324 & 2.50416 & 4.66800 \\ \hline
+4 & 0.8916666 & 0.007318 & 2.50324 & 4.66875 \\ \hline
+5 & 0.8923108 & 0.002923 & 2.50302 & 4.66874 \\ \hline
+6 & 0.8924488 & 0.001168 & 2.50291 & 4.66875 \\ \hline
+7 & 0.8924784 & 0.000467 & 2.50309 & 4.66955 \\ \hline
+8 & 0.8924847 & 0.000186 & 2.50309 & 4.66826 \\ \hline
+9 & 0.8924860 & 0.000074 & - & - \\ \hline
+10 & 0.8924863 & - & - & - \\ \hline
+\end{tabular}
+\caption{
+	Values of \( a_n \), \( \delta_n \), and their ratios for the logistic map.
+	$a_n$ is the value of $\lambda$ such that $\L^{2^n}(0.5) = 0.5$, which is the value of $\lambda$ where the $2^n$ cycle crossed the $y=0.5$ line. 
+	$\delta_n$ is the difference between between 0.5 and the closest point in the $2^n$ cycle at $a_n$.
+	The ratios of there difference are also calculated.
+}
+\label{tab:feigenbuam_alpha_table_for_logistic}
+\end{table}
 
 \section{Single Nodal Functions Give Rise to Bifurcations}
 
-\begin{defn}
-	A function $f: [0,1] \rightarrow [0,1]$ is single nodal if 
-	\begin{enumerate}
-		\item $f$ is piecewise $C^2$, that is, doubly differentiable with continuous second derivative
-		\item $f$ has a unique and differentiable maximum attained at $f(\mx) = 1$ and $f'$ is continuous at $\mx$.
-% TODO: Do we need the condition that f has no other local maximum?
-		\item $f(x) > 0$ and $f(1) = f(0) =0$
-		\item $f(x)$ concave downwards, that is $f'' < 0$.
-	\end{enumerate}
+Our previous discussion of bifurcation of the logistic map is qualitative and the proof of theorem \ref{th:logistic_bifurcation} only relies on the fact that the logistic map is differentiable, concaves downwards, has a unique maximum, and has negative Shwarzian derivative. 
+It may not of surprise, therefore, that the dynamical properties of bifurcation is shared among a large class of functions with very moderate restrictions.
+Let us investigate some more examples.
 
-	This definition is modified from appendix A of Feigenbuam's paper \cite{F1}.
-\end{defn}
+Figure \ref{fig:combined_bifurcations} shows the bifurcation diagrams of $f(\lambda, x) = \lambda \sin(2\pi x)$, $f(\lambda, x) = \lambda + \sin(2\pi x)$, $f(\lambda, x) = \lambda x(1-x)^2$, and $f(\lambda, x) = \lambda x \log(x)$.
+Bifurcation and periodic doubling to chaos were observed for all cases. 
+The shape our bifurcation diagram is extremely similar to that of the logistic map up to elongation and stretching, and it is reasonable to conjecture that most of the points of theorem \ref{th:logistic_bifurcation} shall also apply to these functions.
+
+In figure \ref{fig:combined_bifurcations}, a red horizontal line at each of the graphed functions's local maximum was desplayed,
+Figure \ref{fig:combined_no_bifurcations} shows the bifurcation diagrams of $f(\lambda, x) = \lambda \sin(2\pi x)$, $f(\lambda, x) = \lambda + \sin(2\pi x)$, $f(\lambda, x) = \lambda x(1-x)^2$, and $f(\lambda, x) = \lambda x \log(x)$. 
+No bifurcation was observed for these functions.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./figures/combined_bifurcations.png}
+	\caption{
+		Bifurcations diagrams of four different functions 
+		$ \lambda \sin(2\pi x)$,
+		$ \lambda + \sin(3\pi x)$,
+		$ \lambda x(1-x)^2$,
+		and $ \lambda x \log(x)$.
+		All of these functions exhibit bifurcations and periodic doubling to chaos like the logistic map. 
+		The sub0figures on the left is the overview of bifurcations, where the one on the right is zoomed in around the points of bifurcations.
+		The graph of these functions are presented in figure \ref{fig:combined_bifurcations_functions_graph}
+	}
+	\label{fig:combined_bifurcations}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./figures/combined_no_bifurcations.png}
+	\caption{
+		This figures show pattern of stable orbits (or the lack of it) for four functions which does not exhibit periodic doubling to chaos. 
+		The graph of these functions were presented in figure \ref{fig:combined_bifurcations_functions_graph}.
+	}
+	\label{fig:combined_no_bifurcations}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./figures/combined_functions.png}
+	\caption{
+		This figure shows the graph of the functions whose bifurcation diagrams are graphed on figure \ref{fig:combined_bifurcations}.
+	}
+	\label{fig:combined_bifurcations_functions_graph}
+\end{figure}

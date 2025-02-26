@@ -21,3 +21,4 @@
 *.bbl
 *ERROR*
 *synctex*
+*.vscode

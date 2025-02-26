@@ -1,4 +1,4 @@
-\section{Introduction To Dynamics}
+\section{Introduction To One Dimensional Dynamics}
 
 \begin{defn}[Fixed Point]
 	Assuming we have a iterated dynamical system $x_{i+1} = f(x_i)$. 
@@ -14,26 +14,101 @@ In deed, for some dynamical system $f = x$ for all $x \in I$, where $I$ is some 
 Many interesting dynamical system have infinitely many fixed point, but the set of fixe point is of measure zero, meaning if picking any point in the interval at random, there is a zero chance that it is a fixed point.
 Two traditional examples for a set of measure zero are rational points and cantor set on the real axis. 
 
-It may seem likely that if $x^*$ is a fixed point, nearby points would converge to $x^*$ after iteration.
-If this is the case $x^*$ is a \emph{stable} fixed point.
-Not all fixed points are stable, however, and it may happen that nearby points diverge from $x^*$ after iterations. 
-Fixed point with these property are called \emph{unstable}.
+Given a fixed point, it is natural to ask what are the behaviors of the dynamical system nearby it.
+Will nearby points converge to it, or diverge from it?
+It turns out both are simplifications, and the proper description of the behavior is that it will either be a \emph{stable} fixed point or an \emph{unstable} one. 
 
-This is rigorous definition for (lack of) stablility.
-\begin{defn}[Stable and unstable fixed point]
-	A fixed point $x^*$ is stable if there exists a neighbourhood $I$ containing $x^*$ such that for any $x \in I$, $\lim_{n \rightarrow \infty}f^n(x) = x^*$.
+Here is the rigorous definition of stability, attributed to the renowned Russian mathematician Aleksandr Mikhailovich Lyapunov \cite{lyapunov}.
+
+\begin{defn}[Stable fixed point]
+A fixed point $x^*$ is stable if for all $\epsilon$ there exists a $\delta$ such that 
+$$
+	|f^n(x) - f^n(x^*)| < \epsilon \text{ for } n = 1,2, \cdots 
+$$
+whenever $|x - x^*| < \delta$.
+Here $f^n$ denotes the composition of $f$ $n$ times.
 \end{defn}
-Let us investigate the behavior of the dynamical systems nearby the fixed point.
+
+The intuition for the definition is that if $x$ is close enough to a stable fixed point $x^*$, it will stay close to it forever. 
+It does not imply, however, all $x$ close to $x^*$ will converge to it.
+The classical example for 1-dimension case is the identity map $f(x) = x$. 
+All points are stable fixed points, but no points in a neighbourhood of the fixed point converges to it, except itself.
+
+Considering the above example, we can define a stronger sense of stability called asymptotic stability.
+
+\begin{defn}[Asymptotic Stability]
+	A fixed point $x^*$ is asymptotically stable if it is stable and there exists a $\delta$ such that 
+	$$
+		\lim_{n \rightarrow \infty} f^n(x) = x^* \text{ whenever } |x - x^*| < \delta
+	$$
+\end{defn}
+
+Upon settlement of this definition, the following theorem is immediate.
 
 \begin{thm}[Stable and unstable fixed point]\label{th:_stable_unstable_fixed_point}
-	If $x^*$ is a fixed point of $f$ and $|f'(x^*)| < 1$, $x^*$ is a stable fixed point.
-	If $|f'(x^*)| > 1$, $x^*$ is an unstable fixed point.
+	If $x^*$ is a fixed point of a two time differentiable function $f$ and $|f'(x^*)| < 1$, $x^*$ is a  asymptotic stable fixed point.
+	If $|f'(x^*)| > 1$, $x^*$ is unstable.
 	If $|f'(x^*)| = 0$, $x^*$ may be stable or unstable.
 \end{thm}
 
-There are two canonical methods to prove this theorem, one by demonstration of Taylor expansion and the other by more traditional $\epsilon \delta$ argument of anaylsis.
-Hereby we present the second method.
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{./figures/stable_and_unstable_fixed_point.png}
+	\caption{An illustration of theorem \ref{th:_stable_unstable_fixed_point}.
+	The figure on the left shows function $f(x) = 0.4 e^x - 0.4$, which has a stable fixed point at $x^* = 0$. 
+	The figure on the right shows function $f(x) = 1.3 e^x - 1.3$, which has an unstable fixed point at $x^* = 0$.}
+	\label{fig:stable and unstable fixed point}
+\end{figure}
 
+Figure \ref{fig:stable and unstable fixed point} is an illustration of this theorem.
+To prove this theorem is a regular exercise using Taylor expansion. 
+
+Assuming $x^*$ is a fixed point of the iterated map $f$ whose Taylor expansion is
+
+$$f = f(x^*) + f'(x^*) (x - x^*) + O(x^2)$$
+
+For any $\delta$ let is evaluate $f(x^* + \delta)$.
+Since $x^*$ is a fixed point,
+ $f(x^*) = x^*$, and
+ $f(x^* + \delta) - f(x^*) = f'(x^*) \delta + O(x^2)$. 
+For small enough $\delta$ we can ignore all the terms of degree higher than $2$, and the above equation states $x^*+ \delta$ will eventually converge to $x^*$ if $|f'(x^*)| < 1$, and diverge if $|f'(x^*)| > 1$.
+
+This theorem, though simple, is powerful and is a fundamental part for any rigorous approach of iterated dynamical systems. 
+As a result, hereby we give another proof using only the classic mean value theorem and $\epsilon-\delta$ definition of limit.
+
+\begin{proof}[Proof of Theorem \ref{th:_stable_unstable_fixed_point}]
+	Without loss of any generality we can assume that the stable fixed point is $0$, meaning $f(0) = 0$. 
+	If the function $f^*$ has stable point not at $0$ but at $x^*$, we can always investigate the function $f(x) = f^*(x+x^*) - x^*$. 
+	
+	If for a neighbourhood of $0$ $f' = 0$, we are done, as by mean value theorem $f = 0$ in this neighbourhood, and every $x$ in this neighbourhood converges to $0$ after one iteration.
+
+	If $f' \neq 0$, since $f'$ is continuous, there exists an interval around $0$ such that $f'(x)$ is either strictly positive or strictly negative in this interval (depending on the sign of $f'(x)$), and, since $|f'(0)| < 1$, we can further restrict the interval such that $|f'(x)| < c < 1$. 
+	Label this interval as $I$. 
+	Notice by construction, this interval is a neighbourhood of $0$, so it must contain $0$.
+	
+	First, consider $0 < f'(x) < 1$ for $x \in I$. 
+	For any point $a<0$ and $a\in I$,  $f(a)$ must be small than $0$. 
+	Otherwise, the function $f$ must be overall decreasing in the interval $(a, 0)$, which is impossible as in the whole interval $f'(x) > 0$. 
+	Now, again, since $f'> 0$, $f(a) > a$, so the sequence $a, f(a), f^2(a), \cdots$ is monotonically increasing and bounded above by $0$. 
+	By the completeness of the real number it must converge to some number. 
+	Assuming it converges to $l < 0$. 
+	Let us pick a point $a$ in the interval $(\frac{l}{c}, l)$. 
+	That is, $a > \frac{l}{c} \implies \frac{l}{a} > c$ and $f(a) < l$.
+	Notice 
+	$$
+	\frac{f(0) - f(a)}{0 - a} = \frac{f(a)}{a} > \frac{l}{a} > c
+	$$
+	Where $c$ is the constant defined above such that in the whole interval $|f'(x)| < c$.
+	By mean value theorem, there exists a point $b$ in the interval $(a, 0)$ such that $f'(b) = \frac{f(a)}{a} > c$, which is a contradiction.
+
+	All of other cases ( $a > 0, f'(0) < 1$) can be proved similarly.
+\end{proof}
+
+In the end, let us have some examples where the absolute value of the derivative at the fixed point is $1$.
+Considering the function $f(x) = e^x - 1$, which has a fixed point at $0$.
+All x smaller than $0$ will converge to $0$, while all $x$ larger than $0$ will diverge to infinity.
+
+% TODO: more examples
 
 \section{Devaney's Definition}
 
