@@ -29,18 +29,20 @@ The simplest equation for modelling $\be$ is the linear equation
 
 where $a$ is another constant depending on the model.
 Combining the equations \eqref{eq:p times beff} and \eqref{eq:b_effective}, the recursive formula becomes 
-
 $$
 p_{t+1}  = b p_t - ap_t^2
 $$
 
 Substituting $p_{t} := \frac{b}{a} x_{t}, \lambda := \frac{b}{4}$, we obtain
-
 $$
 x_{t+1} = 4 \lambda x_t(1-x_t) 
 $$
 
 Thence come the standard forms of the logistic map
+\footnote{
+Some sources defined the logistic map as $L^*_{\lambda}(x) = \lambda x(1-x)$ without the constant 4. 
+In this report, however, we will use equation \ref{eq_logistic}, which has the advantage that the maximum value attained by $\L(x)$ at $\frac{1}{2}$ is $\lambda$, and it will also be consistent to the definitions of other class of functions discussed later in the report.
+}
 
 \begin{equation}\label{eq_logistic}
 	L_{\lambda}(x) = 4 \lambda x(1-x)
@@ -65,8 +67,6 @@ Scrutinising the class of discrete logistic functions plotted in figure \ref{fig
 	\item When $0 \leq \lambda$ and $x$ is restricted to the domain $[0, 1]$, $\L(x)$ is a two-to-one non-surjective (except for $\lambda = 1$) function $\L(x): [0,1] \rightarrow [0,\lambda]$. 
 \end{enumerate}
 
-Some sources defined the logistic map as $L^*_{\lambda}(x) = \lambda x(1-x)$ without the constant 4. 
-In this report, however, we will use equation \ref{eq_logistic}, which has the advantage that the maximum value attained by $\L(x)$ at $\frac{1}{2}$ is $\lambda$, and it will also be consistent to the definitions of other class of functions discussed later in the report.
 
 We can check if this model would work as expected by comparing it to its continuous counterpart 
 
@@ -76,11 +76,9 @@ We can check if this model would work as expected by comparing it to its continu
 
 where $c$ is some arbitrary constant denoting the rate of growth. 
 The unique solution to this ordinary differential equation with the initial condition $p(0) = \frac{1}{2}$ is 
-
 $$
 p(x) = \frac{e^{cx}}{1+e^{cx}}
 $$
-
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{./figures/con_vs_discrete_logistic_map.png}
@@ -98,7 +96,7 @@ These interesting dynamics are also observed in the continuous case and is the s
 
 It shall be stressed that, at the end of this session before we go in depth into the theoretical discussions, no impression shall be made to assume one dimensional discrete iterative maps are only useful as a crude model for bacteria population growth. 
 There are abundant examples where equation \eqref{eq:1d iterative map} can be used, some upto a strikingly high accuracy. 
-For example, in genetics when investigating on the frequency of the genotype \cite{genotype}, in economics modelling the relationship between commodity quantity and price \cite{economics}, and in social science on the propagation of rumors \cite{social_science}, among many others.
+For example, in genetics it is used when investigating on the frequency of the genotype \cite{genotype}, in economics modelling the relationship between commodity quantity and price \cite{economics}, and in social science on the propagation of rumors \cite{social_science}, among many others.
 
 
 \section{Logistic Bifurcations}
@@ -109,9 +107,9 @@ For now only $0 \leq \lambda \leq 1$ and $0 \leq x_0 \leq 1$ are considered, so 
 % graph produced by `modelling_pop_with_diff_logistic_maps` in `graph_qc` repo
 \begin{figure}[htbp]
 	\centering
-	\label{fig:various_iter_logistic}
-	\includegraphics[width=\textwidth]{./figures/various_iterating_logistic_map.png}
+	\includegraphics[width=0.9\textwidth]{./figures/various_iterating_logistic_map.png}
 	\caption{Iterating the logistic map with different initial values and $\lambda$. All graphs are produced by setting a $x_0$ and $\lambda$, and iterating $x_{n+1} = L_{\lambda}(x_n)$, and plotting all $x_n$ values respect to iteration number $n$.}
+	\label{fig:various_iter_logistic}
 \end{figure}
 
 There are several immediate observations upon looking at the figure \ref{fig:various_iter_logistic}.
@@ -120,12 +118,12 @@ For $\lambda = 0.6$, $\lim_{n \rightarrow \infty} x_n = l \neq 0$.
 (We can show that, after more tools are developped in the next sessions, $l = \frac{7}{12}$). 
 
 When $\lambda = 0.8$, $x_n$ no longer converges but oscillates in a stable two orbit. 
-For $\lambda = 0.9$ and $\lambda = 1$, it is not clear that if $x_n$ has any stable orbits or sensible patterns, and the best epithed for them would be `chaotic'.
+For $\lambda = 0.9$ and $\lambda = 1$, it is not clear that if $x_n$ has any stable orbits or sensible patterns, and the best epithet for them would be `chaotic'.
 A rigorous topological definition for chaos will be provided in the following session. 
 % TODO: add which session
 
 For all cases it seems like any initial condition, $x_0$, upon iteration, will eventually tend to some common dynamical behavior depending only on $\lambda$.
-The scatter plot, figure \ref{fig:logistic bifurcation overview}, is produced to capture the behavior of $x_n$ as $n \rightarrow \infty$ for various intervals of $\lambda$, showing the overview on top left and zoomed in view for several region of interest.
+The scatter plot, figure \ref{fig:logistic bifurcation overview}, is produced to capture the behavior of $x_n$ as $n \rightarrow \infty$ for various intervals of $\lambda$, showing the overview on the left and zoomed in view for several region of interest on the right.
 These graphs are produced by picking a random $x_0 \in [0,1]$, iterating thousands of times and by setting $x_{n+1} = \L(x_n)$, ignoring the first several hundred iterations, and plotting the rest of $x_i$ on the coordinate $(x_i, \lambda)$ for each $\lambda$ as a faint blue dot.
 
 These pictures are indeed spectacular. 
@@ -133,17 +131,25 @@ For $\lambda$ between $0$ and $a_0 = 0.25$, there is a stable fixed point $x = 0
 When $\lambda$ increases and become greater than $a_1 = 0.75$, $0$ no longer the stable fixed point, but there is another unique stable fixed point elsewhere.
 Precisely when this stable fix point becomes unstable around $\lambda = a_2 \approx 0.77$, a stable two cycles appears.
 The stable two cycle, again, disappeared around $\lambda = a_3 \approx 0.86$, at which point a stable 4 cycles appears. 
-This process of periodic doubling of the stable orbit, which seems to continue indefinitely, is called bifurcation. 
-Upon a closer inspections on the sub-figures of figure \ref{fig:logistic bifurcation overview} zoomed around the windows of bifurcation, each stable orbit and bifurcation pattern seems to be self-similar, and all stable orbit cross the line $y = 0.5$ for some $\lambda$.
+We shall denominate this process of periodic doubling of the stable orbit, which seems to continue indefinitely, as \emph{periodic doubling bifurcation}.\footnote{
+	The word bifurcation comes from medieval Latin bifurcātus, literally meaning two-forked.
+	Here it is used figuratively to describe the process of a single stable orbit forked into two.
+	
+	Bifurcations, in general, means the change of the behaviour of a dynamical systems as the parameter varied.
+	For system depending only on one parameter, there are only three kinds of generic bifurcation: periodic doubling, tangent, and inverse periodic doubling \cite{Chaos_in_DS}.
+	In this report, we will only touch on periodic doubling bifurcation.
+	Bifurcation, in general, has very rich theory and is applicable a large class of dynamical systems, including the continuous ones and those of higher dimension and continuous  \cite{dynamical_systems_v}.
+}
+Upon a closer inspections on the sub-figures of figure \ref{fig:logistic bifurcation overview} zoomed around the windows of bifurcation, each stable orbit and bifurcation pattern seems to be self-similar, and all stable orbits cross the line $y = 0.5$ for some $\lambda$.
 
-Bifurcation, however, does not exhaust the whole spectrum of $[0,1]$, and $a_{n}$ seems to converge to some limit as $n \rightarrow \infty$. 
+Periodic doubling bifurcations, however, does not exhaust the whole spectrum of $[0,1]$, and $a_{n}$ seems to converge to some limit as $n \rightarrow \infty$. 
 Label this limit as $a_{\infty}$.
 For $\lambda > a_{\infty}$, there are no longer any obvious pattern and the overall behavior is best described as chaotic. 
 Nevertheless, in this chaotic region there are windows for stable orbits of odd periods which are not observed for $\lambda < a_{\infty}$. (The term window describing an interval of $\lambda$ for which stable orbit orbit exists is introduced by May \cite{May_Nature}.)
 Examples are $\lambda \approx 0.957$ for a 3-cycle and $\lambda \approx 0.934$ for a 5-cycle.
 
 Before moving to full mathematic mode and start proving, for the last time in this report we shall look back to the real world. 
-As will be shown in the next session, bifurcation is not unique to logistic map but is a common behaviour for a large class of functions sharing very moderate restrictions. 
+As will be shown in the next session, periodic doubling bifurcation is not unique to logistic map but is a common behaviour for a large class of functions sharing very moderate restrictions. 
 Many real world systems, such as population and density of genotype, which can be modeled by one dimensional iterative maps, exhibit dramatic variations in quantity respective to time \cite{colorado_potato_beetle}.
 This behavior has baffled the biologists, many of whom have attributed the cause to the inaccuracy of measurements and perturbations from the environment. 
 The fact that bifurcation is a universal phenomenon for iterative maps, however, may suggest that these variations may be due to the inherent nature of the system itself \cite{genotype}.
@@ -210,7 +216,7 @@ The following paragraph lists some of the key observations of bifurcation and th
 	\includegraphics[width=0.8\textwidth]{./figures/logistic_map_around_bifurcation.png}
 	\caption{
 		$\L, \L^2$ and function $y=x$ are graphed and zoomed in around the fixed point for $\lambda = 0.75$ and $\lambda = 0.78$, where bifurcation takes place.
-		For $\lambda < 0.75$, as can be seen from figure \ref{fig:logistic_bifurcation_zoom_1}, the system as a unique stable point,
+		For $\lambda < 0.75$, as can be seen from figure \ref{fig:logistic_map_diff_lambda}, the system as a unique stable point,
 		which loses its stability and a stable two orbit appears after $\lambda$ just increases above $0.75$.
 		This is because, as shown on the right, precisely when the stable fixed point became unstable, the graph of $\L^2$ will have two more intersection with the line $y=x$, which becomes the stable two orbit.
 	}
@@ -267,7 +273,6 @@ The following paragraph lists some of the key observations of bifurcation and th
 	$$
 		\frac{d}{dx} L_{\lambda}(x)^n = \L'(x)\prod_{i=1}^{n-1} L_{\lambda}'(L_{\lambda}^i(x))
 	$$
-
 	Since $x_0 = 0.5$ is the local maximum of $\L(x)$, the above equation shows that at $x_0 = 0.5$ $\frac{d}{dx} \L^n(x) = 0$ for all $n$.
 	This means if $x_0$ is a fixed point of $\L^n(x)$, it will necessarily be stable. 
 	
@@ -303,62 +308,186 @@ The following paragraph lists some of the key observations of bifurcation and th
 Another striking observation from figure \ref{fig:logistic bifurcation overview} and \ref{fig:Logistic bifurcation log scaled} is that the overall shape of the graph exhibit some kind of fractal structure that is \emph{self similar}.
 If only focusing on one branch of bifurcation and disregarding the coordinates, the shape of each bifurcation is similar to any other up to enlongation and stretching, including the branches bifurcated out from itself.
  
- This observation is crucial to many of the properties of interated maps and leads naturally to the conjecture that each bifurcation is scaled down from its parent. 
+ This observation is crucial to many properties of interated maps and leads naturally to the conjecture that each bifurcation is scaled down from its parent, and there are some constants to descibe the ratio of the scaling. 
 
  There are two ways we can quantify this self-similarity: the spacing between each bifurcation points, and the distance between the superstability point and the point closest to it in the stable orbit. 
  In either case we can compute numerically the values of $x$ and $\lambda$ and quantify this self-similarity.
 
- Numerical computation of the bifurcation point is difficult, as near the bifurcation point the iterated maps converges very slowly.
+ Numerical computation of the bifurcation point beyond the first few terms is difficult, as near the bifurcation point the iterated maps converges very slowly.
  Instead, we can compute the point of superstability where the rate of the convergence is fastest by using theorem \ref{th:logistic_bifurcation}.\ref{log_cross_half} which states that each of the bifurcation cycle must cross $0.5$ where it achieve superstability ($\frac{d}{dx}\L^{2^n}(0.5) = 0$).
-In this report we will label the value of $\lambda$ as $a_0$ at which the superstability point of $2^n$ cycle is attained.
-Once $a_n$ are known, we can use theorem \ref{th:logistic_bifurcation}.\ref{log_closest_branch} to measure the distance between the superstability point and the closest point in the bifurcation cycle. The distances are labelled as $d_n$.
+In this report we will label the value of $\lambda$ as $A_0$ at which the superstability point of $2^n$ cycle is attained.
+Once $A_n$ are known, theorem \ref{th:logistic_bifurcation}.\ref{log_closest_branch} states that the coordinate of the point in the bifurcation cycle to $0.5$ (which is also part of the bifurcaton cycle as super-stability is attained) is $\L^{2^{n-1}}(0.5)$. (Recall at $A_n$ there is a stable $2^n$ cycle).
+Therefore the distances can be measured and are labelled as $d_n$.
+Figure \ref{fig:demonstration of feigenbaum constants on logistic map} is a demonstration of $A_i$ and $d_i$ on logistic map.
 
-The values of $a_n$ and $d_n$ are shown in table \ref{tab:feigenbuam_alpha_table_for_logistic}. 
+The values of $A_n$ and $d_n$ calculated numerically are shown in table \ref{tab:feigenbuam_alpha_table_for_logistic}. 
 The observation is clear:
-$\frac{a_{n+1}-a_n}{a_{n+2}-a_{n+1}}$ approaches approximately $2.503$ as $n \rightarrow \infty$, and $\frac{d_n}{d_{n+1}}$ approaches approximately $4.668$ as $n \rightarrow \infty$. 
+$\frac{A_{n+1}-A_n}{A_{n+2}-A_{n+1}}$ approaches approximately $4.668$ as $n \rightarrow \infty$, and $\frac{d_n}{d_{n+1}}$ approaches approximately $2.503$ as $n \rightarrow \infty$. 
 The former is known as Feigenbaum's constant $\delta \approx 4.6692016091023$, the latter Feigenbaum's constant $\alpha \approx 2.5029078750957$ \cite{F1}.
-The reason these constants are worth such as denominations is that they are \emph{universal}, as will be discussed in the next session.
+The reason these constants are worth such as denominations is that they are \emph{universal}, as will be discussed in section \ref{sec:universal_feigenbaum_constants_numerics_demonstration}.
 
-
-\begin{table}[ht]
+\begin{table}
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\( n \) & \( a_n \) & \( d_n \) & \(\frac{a_{n+1} - a_n}{a_{n+2} - a_{n+1}}\) & \(\frac{d_n}{d_{n+1}}\) \\ \hline
-0 & 0.500000 & 0.309017 & 2.65492 & 4.70919 \\ \hline
-1 & 0.8090170 & 0.116394 & 2.53187 & 4.67967 \\ \hline
-2 & 0.8746370 & 0.045972 & 2.50879 & 4.66287 \\ \hline
-3 & 0.8886594 & 0.018324 & 2.50416 & 4.66800 \\ \hline
-4 & 0.8916666 & 0.007318 & 2.50324 & 4.66875 \\ \hline
-5 & 0.8923108 & 0.002923 & 2.50302 & 4.66874 \\ \hline
-6 & 0.8924488 & 0.001168 & 2.50291 & 4.66875 \\ \hline
-7 & 0.8924784 & 0.000467 & 2.50309 & 4.66955 \\ \hline
-8 & 0.8924847 & 0.000186 & 2.50309 & 4.66826 \\ \hline
-9 & 0.8924860 & 0.000074 & - & - \\ \hline
-10 & 0.8924863 & - & - & - \\ \hline
+\( n \) & \( A_n \) & \( d_n \) &  \(\frac{d_n}{d_{n+1}}\) & \(\frac{A_{n+1} - A_n}{A_{n+2} - A_{n+1}}\)  \\ \hline
+0 & 0.5000000000 & 0.3064950000 & 4.5358092997 & 2.6616365278 \\
+1 & 0.8064950000 & 0.1151528380 & 4.6838460230 & 2.5423697165 \\
+2 & 0.8740672853 & 0.0452935060 & 4.6103617168 & 2.5175763063 \\
+3 & 0.8884939520 & 0.0179909169 & 4.6110890246 & 2.5029942863 \\
+4 & 0.8916231352 & 0.0071877579 & 4.6981361800 & 2.5187506567 \\
+5 & 0.8923017565 & 0.0028536996 & 4.5692030565 & 2.5019617749 \\
+6 & 0.8924462013 & 0.0011405848 & 4.6976886127 & 2.5191930664 \\
+7 & 0.8924778140 & 0.0004527580 & 4.5707037850 & 2.5048153706 \\
+8 & 0.8924845434 & 0.0001807550 & 4.6690000000 & 2.5116759261 \\
+9 & 0.8924860157 & 0.0000719659 & 4.6410832897 & 2.5226365150 \\
+10 & 0.8924863310 & 0.0000285281 & 4.5599414736 & 2.5096745464 \\
+11 & 0.8924863990 & 0.0000113672 & 4.6418936559 & 2.5130534587 \\
+12 & 0.8924864139 & 0.0000045233 & 4.6286915064 & 2.5181104605 \\
+13 & 0.8924864171 & 0.0000017963 & 4.6027721102 & 2.5201147995 \\
+14 & 0.8924864178 & 0.0000007128 &  - &  - \\
+15 & 0.8924864179 &  - &  - &  - \\
+\hline
 \end{tabular}
 \caption{
-	Values of \( a_n \), \( \delta_n \), and their ratios for the logistic map.
+	Values of \( A_n \), \( \delta_n \), and their ratios for the logistic map.
 	$a_n$ is the value of $\lambda$ such that $\L^{2^n}(0.5) = 0.5$, which is the value of $\lambda$ where the $2^n$ cycle crossed the $y=0.5$ line. 
-	$\delta_n$ is the difference between between 0.5 and the closest point in the $2^n$ cycle at $a_n$.
+	$\delta_n$ is the difference between between 0.5 and the closest point in the $2^n$ cycle at $A_n$.
 	The ratios of there difference are also calculated.
 }
 \label{tab:feigenbuam_alpha_table_for_logistic}
 \end{table}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\textwidth]{./figures/demonstration of feigenbaum constants.png}
+	\caption{ 
+		A portion of the bifurcation diagram of the logistic map with demonstration of  $A_i$, which is the value of $\lambda$ at which the superstability of $2^i$ cycle is attained, and $d_i$, which is the distance between the superstability point ($0.5$) and the closest point in the stable orbit.
+		The $\lambda$ axis in in logarithmic scale, and the transformation to from $\lambda$ to $x$ coordinate is $-\log(A_{\infty} - \lambda)$.
+	}
+	\label{fig:demonstration of feigenbaum constants on logistic map}
+\end{figure}
+
+At the end of this section it is worthwhile to describe our algorithm to compute $A_i$ and $d_i$ in details, as such seemingly innocuous computation is actually surprisingly challenging.
+As for as the authors' knowledge, computations of $A_i$ to such precision has not been performed previously, and the method described here is original.
+
+The first challenge is the precision of floating point arithmetic.
+As can be seen from table \ref{tab:feigenbuam_alpha_table_for_logistic}, at $n = 10$, the value of $A_{n+1} -A_{n} $ is smaller than $ 10^{-8}$. 
+To compute $\frac{A_{n+1} - A_n}{A_{n+2} - A_{n+1}}$ to $8$ significant figures (base 10), therefore, would require calculating $A_i$ to 16 significant figures, greater than the precision of the double precision floating point used in most computers, which only allows approximately 15 significant figures
+\footnote{
+	The IEEE standard for floating point arithmetic \cite{IEEE_floating_point} (IEEE 754) demands 53 bits of binary digits in double precision floating point (page 8, table 3.2 of the standard.) This translates to $53 \cdot \log_{10}(2) \approx 15.8$ significant digits based 10.
+}.
+The only way to overcome this is to use an arbitrary precision arithmetic library. 
+We chose to use GNU GMP (GNU Multiple Precision Arithmetic Library) \cite{GMP} with interface in C++.
+
+The next challenge is the efficiency of the algorithm. 
+If the algorithm starts by trying each $\lambda = 0$ and increment by $10^{-8}$ until $\lambda$ reaches $1$, the computer needs to compute literally billions of iterations of the logistic map, taking very long time and much wasted computer power.
+The natural optimisation is to guess the approximately where $A_i$ shall be and check $\lambda$ with greator precision in the guessed area. 
+In the process of guessing we still need to increment $\lambda$ by some difference.
+But initially we can increment $\lambda$ by a larger difference, and whenever a value of $A_i$ is found, this difference shall be scaled down by Feigenbaum's  $\delta$.
+
+
+While the full code in C++ was included in the appendix,
+Algorithm \ref{ag:compute A_i} shows the pseudo code, which needs input parameter $\lambda_{start}$ for the start of $\lambda$, $\lambda_d$ for the initial increment of $\lambda$, and $n_{bound}$ for the maximum number of $A_i$ to be computed.
+Algorithm \ref{ag:compute A_i} depends on the algorthm \ref{ag:super stable} and \ref{ag:fine tuning}. 
+The former checks if superstability under a threshold is obtained at a certain $\lambda$, and the latter fine tunes $\lambda$ to obtain the most accurate value of $A_i$.
+Both algorithm requires various parameter including the threshold for superstability and the constant $c$ for fine tuning.
+By poking different values for paramters of this algorithm, a reasonalbe accurate numerics can be obtained up to $A_{15}$.
+
+
+\begin{algorithm}
+	\caption{Check if $\lambda$ is super stable}
+	\begin{algorithmic}[1]
+		\State $\lambda$, cycle number $n,$ point of superstability $x^* = 0.5$, and threshold $t$.
+		\If{$|L_{\lambda}^{2^{n-1}}(0.5) - 0.5| < threshold$}
+		\State \Return True
+		\Else
+		\State \Return False
+		\EndIf
+	\end{algorithmic}
+	\label{ag:super stable}
+\end{algorithm}
+
+\begin{algorithm}
+	\caption{Fine Tuning $\lambda$}
+	\begin{algorithmic}[1]
+		\State $\lambda$, cycle number $n,$ point of superstability $x^* = 0.5$, and an constant $c$. $\lambda \in (\lambda - c, \lambda +c)$ are checked.
+		\State Create a list $L$ of $\lambda$ in the interval $I$.
+		\State Compute the list $L^*$, which holds $L_{\lambda}^{2^{n-1}}(0.5)$ for each $\lambda$ in $L$.
+		\State Set $\lambda$ to be the element in $L$ corresponding to the minimum value in $L^*$.
+		\State Perform fine tuning by repeating the above steps after setting $c = c / \delta$. \Comment{$\delta$ is Feigenbaum's delta}
+		\State Iteration stops when $c$ is smaller than a certain threshold.
+	\end{algorithmic}
+	\label{ag:fine tuning}
+\end{algorithm}
+
+\begin{algorithm}
+	\caption{Computation of $A_i, d_i$}
+	\begin{algorithmic}[1]
+		\State $\lambda = \lambda_{start}$, $A_i = \{0.5\}, d_i = \{\}$, and cycle number $n = 2$ (We have computed the first stability point is $0.5$, so we can start with cycle number $2$.)
+		\While{$\lambda < \lambda_{end}$ and $len(A_i) < n_{bound} $}
+		\If{$L_{\lambda}(0.5)$ is super stable}  \Comment{Using algorithm \ref{ag:super stable}}
+			\State Fine tuning $\lambda$ with algorithm \ref{ag:fine tuning}.
+			\State Append $\lambda$ to $A_i$ 
+			\State Append $\L^{2^{n-1}}(0.5)$ to $d_i$ 
+			\State $\lambda = \lambda + \lambda_{i}$
+			\State $\lambda_{d} = \lambda_d / \delta$  \Comment{$\delta$ is Feiganbaum's delta}
+			\State $\lambda_{i} = \lambda_i / \delta$
+			\State $n = n + 1$
+		\EndIf
+		\State $\lambda = \lambda + \lambda_d$
+		\EndWhile
+	\end{algorithmic}
+	\label{ag:compute A_i}
+\end{algorithm}
+
 \section{Single Nodal Functions Give Rise to Bifurcations}
 
-Our previous discussion of bifurcation of the logistic map is qualitative and the proof of theorem \ref{th:logistic_bifurcation} only relies on the fact that the logistic map is differentiable, concaves downwards, has a unique maximum, and has negative Shwarzian derivative. 
+Our previous discussion of infinite bifurcations of the logistic map is qualitative and the proof of theorem \ref{th:logistic_bifurcation} only relies on the fact that the logistic map is differentiable, concaves downwards, has a unique maximum, and has negative Schwarzian derivative. 
 It may not of surprise, therefore, that the dynamical properties of bifurcation is shared among a large class of functions with very moderate restrictions.
 Let us investigate some more examples.
 
 Figure \ref{fig:combined_bifurcations} shows the bifurcation diagrams of $f(\lambda, x) = \lambda \sin(2\pi x)$, $f(\lambda, x) = \lambda + \sin(2\pi x)$, $f(\lambda, x) = \lambda x(1-x)^2$, and $f(\lambda, x) = \lambda x \log(x)$.
-Bifurcation and periodic doubling to chaos were observed for all cases. 
-The shape our bifurcation diagram is extremely similar to that of the logistic map up to elongation and stretching, and it is reasonable to conjecture that most of the points of theorem \ref{th:logistic_bifurcation} shall also apply to these functions.
+Infinite bifurcation and periodic doubling to chaos were observed for all cases, although the exact values of $\lambda$ at which the bifurcation take place is different for each map.
+It is also striking that shape of each bifurcation diagram is extremely similar to that of the logistic map up to elongation and stretching, so it is reasonable to conjecture that most of the points of theorem \ref{th:logistic_bifurcation} shall also apply to these functions.
+Indeed. the point \ref{log_cross_half} is readily demonstrated by figure \ref{fig:combined_bifurcations}.
+as in each subfigure the horizontal line at the local maximum crosses the stable orbits of any periods at some $\lambda$.
 
-In figure \ref{fig:combined_bifurcations}, a red horizontal line at each of the graphed functions's local maximum was desplayed,
-Figure \ref{fig:combined_no_bifurcations} shows the bifurcation diagrams of $f(\lambda, x) = \lambda \sin(2\pi x)$, $f(\lambda, x) = \lambda + \sin(2\pi x)$, $f(\lambda, x) = \lambda x(1-x)^2$, and $f(\lambda, x) = \lambda x \log(x)$. 
-No bifurcation was observed for these functions.
+% TODO: How shall we name these diagram if there is no bifurcation?
+Figure \ref{fig:combined_no_bifurcations} shows the diagrams of $\lambda \sin(2\pi x)$, $\lambda + \sin(2\pi x)$, $\lambda x(1-x)^2$, and $\lambda x \log(x)$. 
+Each of these function exhibit dynamical behavior different from periodic bifurcations.
+
+The $\lambda e^x$ map bifurcated precisely one at $-e$. 
+For all $\lambda < -e$ there are two stable orbit, for $\lambda > -e$ there are one stable orbits.
+
+As for the tent map, there is one unique stable fixed point $x=0$ for $\lambda \in [-0.5, 0.5]$, and for any other $\lambda$ there seems to be no stable orbits at all but homogeneous region of chaos. 
+(The fact that tent map is chaotic is proved in \ref{ex:logistic and tent}).
+
+The two $\arctan$ map have similar behavior as the exponential map. 
+Their stable orbit only bifurcated once over all $\lambda \in \bb{R}$.
+
+Why do the former class of functions exhibit infinite bifurcations to chaos, but the latter class do not?
+The graphs of these functions, shown in figure \ref{fig:combined_bifurcations_functions_graph}, may give the answer. 
+All functions which give rise to bifurcation is smooth and have a single modal structure, that is, its value is bounded and attains an unique maximum in some interval, while those do not exhibit bifurcation is either not differential at the maximum (the tent map), or does not have local maximum(the exponential and arctangent map).
+This observation does fit our expectation, as in the proof of theorem \ref{th:logistic_bifurcation}, the most important properties used is that fact that the logistic function attains a unique, differentiable maximum at $0.5$ and it has constant negative second derivative, thus concaves downwards. 
+
+Metropolis et al \cite{metropolis2017finite} have shown that the bifurcation phenomenon is universal for all functions which satisfy the following properties, 
+
+\begin{thm}[Criterion for infinite bifurcations]
+	If $f(x)$ satisfies the following properties:
+	\begin{enumerate}
+		\item $f(x)$ is continuous, singled valued, piecewise $C^1$ and has a unique differentiable maximum on the interval $[0,1]$ attained at $x^*$.
+		\item $f(x) > 0$ on $(0,1)$, $f(0) = f(1) = 0$, and $f$ is strictly increasing in $[0, x^*]$ and strictly decreasing in $[x^*, 1]$.
+		\item For $\Lambda_0 < \lambda < 1, \lambda f(x)$ has two fixed points (one of which is $x = 0$) both of which are repellant, that is $|\lambda f'(x)| > \frac{1}{\lambda}$.
+		\item In the interval $N$ around the unique maximum $f$ concaves down-wards.
+	\end{enumerate}
+	Then the system $x_{n+1} = \lambda f(x_n)$ will exhibit infinite bifurcations and periodic doubling to chaos.
+	To put it precise, 
+	\begin{enumerate}
+		\item For $\Lambda_0 < \lambda < \lambda_{\infty} < 1$, there exists stable orbit of period $2^n$ for all $n = 1, 2, \cdots$. with $n$ increasing with $\lambda$.
+		\item For each $\lambda$, there exists at most one set of stable orbits.
+	\end{enumerate}
+\end{thm}
 
 \begin{figure}
 	\centering
@@ -370,12 +499,11 @@ No bifurcation was observed for these functions.
 		$ \lambda x(1-x)^2$,
 		and $ \lambda x \log(x)$.
 		All of these functions exhibit bifurcations and periodic doubling to chaos like the logistic map. 
-		The sub0figures on the left is the overview of bifurcations, where the one on the right is zoomed in around the points of bifurcations.
+		The subfigures on the left is the overview of bifurcations, where the one on the right is zoomed in around the points of bifurcations.
 		The graph of these functions are presented in figure \ref{fig:combined_bifurcations_functions_graph}
 	}
 	\label{fig:combined_bifurcations}
 \end{figure}
-
 
 \begin{figure}
 	\centering
@@ -395,3 +523,47 @@ No bifurcation was observed for these functions.
 	}
 	\label{fig:combined_bifurcations_functions_graph}
 \end{figure}
+
+
+\section{The Universal Feigenbaum's Constants}\label{sec:universal_feigenbaum_constants_numerics_demonstration}
+
+Having settled that the periodic bifurcation is a universal phenomenon for a large class of functions, naturally we ask how about the scaling constants shown in table \ref{tab:feigenbuam_alpha_table_for_logistic}.
+The surprising fact is that, the Feigenbaum's constants $\delta$ and $\alpha$ are universal for any iterative map depending on one variable and exhibit periodic doubling bifurcations with orbit $2^0, 2^1, 2^2, \cdots$. 
+Indeed, Tabor has showed that such constants are universal for iterative maps with negative Schwarzian derivative \cite{Tabor}.
+The entirety of the last chapter, instead, will be dedicated to the proof of this fact based on Feigenbaum's thoery of scaling, and in this session we shall demonstrate this by considering another numerical example.
+
+Table \ref{tab:feigenbuam_constants_skewed_logistic_map} shows the $A_i$, $d_i$, and their ratios for the skewed logistic map $f_{\lambda} (x) = \lambda x (1-x)^2$.
+The numerics were calculated with an algorithm similar to \ref{ag:compute A_i}.
+Although the speed of convergence clearly different, 
+$ \frac{d_n}{d_{n+1}} $ and $\frac{A_{n+1} - A_n}{A_{n+2} - A_{n+1}}$ seem to converge to the same number as in the logistic map.
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\( n \) & \( A_n \) & \( d_n \) &  \(\frac{d_n}{d_{n+1}}\) & \(\frac{A_{n+1} - A_n}{A_{n+2} - A_{n+1}}\)  \\ \hline
+0 & 0.5000000000 & 0.3064950000 & 4.5358092997 & 2.6616365278 \\
+1 & 0.8064950000 & 0.1151528380 & 4.6838460230 & 2.5423697165 \\
+2 & 0.8740672853 & 0.0452935060 & 4.6103617168 & 2.5175763063 \\
+3 & 0.8884939520 & 0.0179909169 & 4.6110890246 & 2.5029942863 \\
+4 & 0.8916231352 & 0.0071877579 & 4.6981361800 & 2.5187506567 \\
+5 & 0.8923017565 & 0.0028536996 & 4.5692030565 & 2.5019617749 \\
+6 & 0.8924462013 & 0.0011405848 & 4.6976886127 & 2.5191930664 \\
+7 & 0.8924778140 & 0.0004527580 & 4.5707037850 & 2.5048153706 \\
+8 & 0.8924845434 & 0.0001807550 & 4.6690000000 & 2.5116759261 \\
+9 & 0.8924860157 & 0.0000719659 & 4.6410832897 & 2.5226365150 \\
+10 & 0.8924863310 & 0.0000285281 & 4.5599414736 & 2.5096745464 \\
+11 & 0.8924863990 & 0.0000113672 & 4.6418936559 & 2.5130534587 \\
+12 & 0.8924864139 & 0.0000045233 & 4.6286915064 & 2.5181104605 \\
+13 & 0.8924864171 & 0.0000017963 & 4.6027721102 & 2.5201147995 \\
+14 & 0.8924864178 & 0.0000007128 &  - &  - \\
+15 & 0.8924864179 &  - &  - &  - \\
+\hline
+\end{tabular}
+\caption{
+	Values of \( A_n \), \( \delta_n \), and their ratios upto ten decimal places for the skwed logistic map $f_{\lambda}(x) = \lambda x(1-x)^2$.
+	The calculations are the same as in table \ref{tab:feigenbuam_alpha_table_for_logistic}.
+}
+\label{tab:feigenbuam_constants_skewed_logistic_map}
+\end{table}
+
+

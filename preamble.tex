@@ -15,6 +15,10 @@
 \usepackage{subfiles}
 \usepackage{blindtext}
 \usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+
 \usetikzlibrary{cd}
 \usetikzlibrary{positioning}
 
@@ -31,6 +35,53 @@
 \usepackage{multicol}
 % \usepackage{hyperref}
 \usepackage{import}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[toc,page]{appendix}
+\usepackage{listings}
+\lstdefinestyle{cppstyle}{
+    language=C++,
+    basicstyle=\ttfamily\footnotesize,        % Small but readable font
+    keywordstyle=\color{blue}\bfseries,       % Keywords in blue and bold
+    stringstyle=\color{teal},                 % Strings in teal
+    commentstyle=\color{gray}\itshape,        % Comments in italic gray
+    morecomment=[l][\color{magenta}]{\#},     % Preprocessor directives in magenta
+    numbers=left,                             % Line numbers on the left
+    numberstyle=\tiny\color{gray},            % Small gray line numbers
+    stepnumber=0,                             % Number every line
+    frame=single,                             % Add a thin border around the code
+    rulecolor=\color{black},                  % Border color
+    tabsize=4,                                % Set tab width
+    breaklines=true,                          % Enable line wrapping
+    breakatwhitespace=true,                   % Break at spaces
+    showspaces=false,                         % Hide space markers
+    showstringspaces=false,                   % Hide spaces in strings
+    captionpos=b,                             % Caption at bottom
+    aboveskip=5pt,                            % Space before code block
+    belowskip=5pt,                            % Space after code block
+    backgroundcolor=\color{black!5},          % Light gray background
+}
+
+\lstdefinestyle{python}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,        
+    backgroundcolor=\color{black!5},    % Light gray background
+    keywordstyle=\bfseries\color{blue}, % Bold blue keywords
+    stringstyle=\color{teal},           % Teal strings
+    commentstyle=\color{gray},          % Gray comments
+    stepnumber=0,                             % Number every line
+    frame=single,                             % Add a thin border around the code
+    rulecolor=\color{black},                  % Border color
+    tabsize=4,                                % Set tab width
+    breaklines=true,                          % Enable line wrapping
+    breakatwhitespace=true,                   % Break at spaces
+    showspaces=false,                         % Hide space markers
+    showstringspaces=false,                   % Hide spaces in strings
+    captionpos=b,                             % Caption at bottom
+    aboveskip=5pt,                            % Space before code block
+    belowskip=5pt,                            % Space after code block
+    backgroundcolor=\color{black!5},          % Light gray background
+}
 
 
 \newtheorem{thm}{Theorema}[chapter]
@@ -74,6 +125,42 @@
 % project specific macros
 % m stands for maximum
 \newcommand{\mx}{\overline{x}}
+
+
+\usetikzlibrary{arrows,calc,shadows.blur}
+\tcbuselibrary{skins}
+\newtcolorbox{nb}[1][]{%
+	enhanced jigsaw,
+	colback=gray!20!white,%
+	colframe=gray!80!black,
+	size=small,
+	boxrule=1pt,
+	title=\textbf{N.B.},
+	halign title=flush center,
+	coltitle=black,
+	breakable,
+	attach boxed title to top left={xshift=1cm,yshift=-\tcboxedtitleheight/2,yshifttext=-\tcboxedtitleheight/2},
+	minipage boxed title=1.5cm,
+	boxed title style={%
+			colback=white,
+			size=fbox,
+			boxrule=1pt,
+			boxsep=2pt,
+			underlay={%
+					\coordinate (dotA) at ($(interior.west) + (-0.5pt,0)$);
+					\coordinate (dotB) at ($(interior.east) + (0.5pt,0)$);
+					\begin{scope}
+						\clip (interior.north west) rectangle ([xshift=3ex]interior.east);
+						\filldraw [white, blur shadow={shadow opacity=60, shadow yshift=-.75ex}, rounded corners=2pt] (interior.north west) rectangle (interior.south east);
+					\end{scope}
+					\begin{scope}[gray!80!black]
+						\fill (dotA) circle (2pt);
+						\fill (dotB) circle (2pt);
+					\end{scope}
+				},
+		},
+	#1,
+}
 
 \date{27 February, 2025}
 \title{Quantifying Chaos}

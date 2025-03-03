@@ -1,4 +1,12 @@
-\section{Introduction To One Dimensional Dynamics}
+For the entirety of this report we have been loose on using the term chaotic.
+This chapter attempts to remedy this and give some rigorous treatment of chaos using tools in topology and analysis and provides proof for some theorems which we relied heavily for the rest of the report.
+
+\section{Introduction to one dimensional dynamics}
+
+The term \emph{dynamical system} describes a branch of mathematics that studies a process which evolves over time \cite{Devaney_green_book_chaos_definition}.
+Most of this report concentrates on the one dimensional system consists of sequence of number $x_0, x_1, \cdots$, where $x_0$ is some arbitrary starting point and $x_{n+1} = f(x_n)$, where $f$ is a function of interest. 
+
+Our first definition is fixed point.
 
 \begin{defn}[Fixed Point]
 	Assuming we have a iterated dynamical system $x_{i+1} = f(x_i)$. 
@@ -18,7 +26,7 @@ Given a fixed point, it is natural to ask what are the behaviors of the dynamica
 Will nearby points converge to it, or diverge from it?
 It turns out both are simplifications, and the proper description of the behavior is that it will either be a \emph{stable} fixed point or an \emph{unstable} one. 
 
-Here is the rigorous definition of stability, attributed to the renowned Russian mathematician Aleksandr Mikhailovich Lyapunov \cite{lyapunov}.
+Here is the rigorous definition of stability, attributed to the renowned Russian mathematician Aleksandr Mikhailovich Liapunov \cite{lyapunov}.
 
 \begin{defn}[Stable fixed point]
 A fixed point $x^*$ is stable if for all $\epsilon$ there exists a $\delta$ such that 
@@ -64,8 +72,7 @@ Figure \ref{fig:stable and unstable fixed point} is an illustration of this theo
 To prove this theorem is a regular exercise using Taylor expansion. 
 
 Assuming $x^*$ is a fixed point of the iterated map $f$ whose Taylor expansion is
-
-$$f = f(x^*) + f'(x^*) (x - x^*) + O(x^2)$$
+$$f(x) = f(x^*) + f'(x^*) (x - x^*) + O(x^2)$$
 
 For any $\delta$ let is evaluate $f(x^* + \delta)$.
 Since $x^*$ is a fixed point,
@@ -73,7 +80,7 @@ Since $x^*$ is a fixed point,
  $f(x^* + \delta) - f(x^*) = f'(x^*) \delta + O(x^2)$. 
 For small enough $\delta$ we can ignore all the terms of degree higher than $2$, and the above equation states $x^*+ \delta$ will eventually converge to $x^*$ if $|f'(x^*)| < 1$, and diverge if $|f'(x^*)| > 1$.
 
-This theorem, though simple, is powerful and is a fundamental part for any rigorous approach of iterated dynamical systems. 
+This theorem, though simple, is powerful and is a fundamental part for any rigorous approach of iterated dynamical systems and is also used multiple times in this report (such as in the proof of \ref{th:logistic_bifurcation}). 
 As a result, hereby we give another proof using only the classic mean value theorem and $\epsilon-\delta$ definition of limit.
 
 \begin{proof}[Proof of Theorem \ref{th:_stable_unstable_fixed_point}]
@@ -86,11 +93,14 @@ As a result, hereby we give another proof using only the classic mean value theo
 	Label this interval as $I$. 
 	Notice by construction, this interval is a neighbourhood of $0$, so it must contain $0$.
 	
-	First, consider $0 < f'(x) < 1$ for $x \in I$. 
+	First, consider $0 < f'(x) < c < 1$ for $x \in I$. 
 	For any point $a<0$ and $a\in I$,  $f(a)$ must be small than $0$. 
-	Otherwise, the function $f$ must be overall decreasing in the interval $(a, 0)$, which is impossible as in the whole interval $f'(x) > 0$. 
-	Now, again, since $f'> 0$, $f(a) > a$, so the sequence $a, f(a), f^2(a), \cdots$ is monotonically increasing and bounded above by $0$. 
-	By the completeness of the real number it must converge to some number. 
+	Otherwise, the function $f$ will be overall decreasing in the interval $(a, 0)$, and by mean value theorem there will be a point $a^*$ such that $a < a^* < 0$ and $f'(a^*) = \frac{f(a) - f(0)}{a - 0} = \frac{f(a)}{a} < 0$, which is impossible.
+
+	Since $f(a) < 0$, we can further shows that $f(a) > a$. 
+	If $f(a) < a$ by mean value theorem there is some point $a^* \in (a, 0)$ such that $f'(a^*) = \frac{f(a) - f(0)}{a - 0} = \frac{f(a)}{a} > 1$, which also impossible.
+
+	As a result the sequence $a, f(a), f^2(a), \cdots$ is monotonically increasing and bounded above by $0$, and by the completeness of the real number it must converge to some number. 
 	Assuming it converges to $l < 0$. 
 	Let us pick a point $a$ in the interval $(\frac{l}{c}, l)$. 
 	That is, $a > \frac{l}{c} \implies \frac{l}{a} > c$ and $f(a) < l$.
@@ -101,38 +111,41 @@ As a result, hereby we give another proof using only the classic mean value theo
 	Where $c$ is the constant defined above such that in the whole interval $|f'(x)| < c$.
 	By mean value theorem, there exists a point $b$ in the interval $(a, 0)$ such that $f'(b) = \frac{f(a)}{a} > c$, which is a contradiction.
 
-	All of other cases ( $a > 0, f'(0) < 1$) can be proved similarly.
+	All of other cases ($a > 0, f'(0) < 1$) can be proved similarly.
 \end{proof}
 
-In the end, let us have some examples where the absolute value of the derivative at the fixed point is $1$.
-Considering the function $f(x) = e^x - 1$, which has a fixed point at $0$.
-All x smaller than $0$ will converge to $0$, while all $x$ larger than $0$ will diverge to infinity.
+This theorem does not apply if the derivative of a function at a fixed point is $\pm 1$.
+If such is the case the fixed point may be stable or unstable, or it may exhibit more interesting behaviors.
+For example, the function $f(x) = e^x - 1$ has a fixed point at $0$.
+All $x$ smaller than $0$ will converge to $0$ upon iterations, while all $x$ larger than $0$ will diverge to infinity.
 
-% TODO: more examples
+\section{Devaney's Definition of Chaos}
 
-\section{Devaney's Definition}
+We have used the term chaotic serveral times in this report without rigorous definition. 
+In this session we will settle this problem.
 
+One intuition is that every point in the chaotic system can be ``mixed'' with any other point after some time interval. 
+This is captured by topological transitivity.
 \begin{defn}[Topologically Transitive]
 	Let $J$ be a set with a topology.
 	The function $f: J \rightarrow J$ is topologically transitive, if for all non-empty open sets $U_1, U_2 \in J$, there exist $k \in \bb{N}$ such that $f^k(U_1) \cap U_2 \neq \varnothing$. 
 	Here $f^k$ denotes the composition $\underbrace{f \circ f \cdots \circ f}_{k \text{ times}}$
 \end{defn}
 
-\begin{defn}[Dense]
-	Let $X$ be subset of the topological space $J$. 
-	$X$ is dense if $\overline{X} = J$, where $\overline{X}$ denote the closure of $X$.
-\end{defn}
-
-\begin{defn}[Periodic Point]
-	A point $x$ is a period of period $k$ if $f^k(x)=x$.
-\end{defn}
-
+The second intuition for chaos is that a small change in the initial condition can lead to a large change in the final condition. 
+Liapunov exponent is a quantitative measure of this, but here we present another analytical definition, which is sensitive dependence on initial condition. This term is coined by Ruelle \cite{Ruelle-1978}.
 \begin{defn}[Sensitive Dependence on Initial Condition]
-	This term is coined by Ruelle \cite{Ruelle-1978}.
-
 	Let $J$ be a metric space with the metric $d: J \times J \rightarrow \bb{R}$.
 	$f: J \rightarrow J$ has sensitive dependence on initial condition if there exists some $\delta > 0$ such that for all $x \in J$ and any neighbourhood $X$ containing $x$, there exists $y \in X$ and $n \in \bb{N}$ such that $d(f^n(x), f^n(y)) > \delta$.
 \end{defn}
+
+Maybe the most striking fact about chaotic system that, although seemingly chaotic, some order still remains.
+Since chaos tent to mix every points together, it is natural that some points will return to their original position after certain iterations.
+Although we may simply decree periodic points are infinite, using topology we can state a stronger and more precise definition, that is, the periodic points are dense.
+
+Of course. a point $x$ is a period of period $k$ if $f^k(x)=x$, and dense here is in sense of topology.
+
+Therefore we have arrived at the following definition.
 
 \begin{defn}[Chaos, Devaney's Definition]\label{def:Devaney_definition_for_chaos}
 	Let $V$ be a metric space.
@@ -199,11 +212,11 @@ As a result, we only need to check the first two conditions to determine if a fu
 	are chaotic.
 \end{example}
 
+\section{Topological Conjugacy}
+
 To prove the doubling map is chaotic is a gentle exercise. 
 To directly find the points of periodicity and prove that a general function is topologically transitive is difficult.
-Instead, we can circumvent these challenges by exploiting certain topological properties introduced in the next section.
-
-\section{Topological Conjugacy}
+Instead, we can circumvent these challenges by exploiting certain topological properties called topological conjugacy.
 
 \begin{defn}[Topological Conjugacy]
 Funcitons $f: X \rightarrow X$, $g:  Y \rightarrow Y$ are topologically conjugate if there exist a homeomorphism $\phi: X \rightarrow Y$ such that 
@@ -228,7 +241,17 @@ So $f^{n} = \phi^{-1} \circ g^{n} \circ \phi$; that is $f^n$ is conjugate to $g^
 Topological conjugacy is an equivalence condition. 
 $f$ is conjugate to itself by identity map. 
 $\phi \circ f = g \circ \phi$ implies $f \circ \phi^{-1} = \phi^{-1} \circ g$, so $g$ is also conjugate to $f$.
-Lastly, if $f$  is conjugate to $g$ via $\phi$, and $g$ is conjugate to $h$ via $\phi'$, $\phi' \circ \phi \circ f = \phi' g \circ \phi = h \circ \phi'' $, which means $f$ is conjugate to $h$ via $h' \circ h$.
+At last we need to prove transitivity, which is illustrated in the following scheme
+\begin{center}
+    \begin{tikzcd}
+        X \arrow[r, "f"] \arrow[d, "\phi" swap] & X \arrow[d, "\phi"] \\
+        Y \arrow[r, "g"] \arrow[d, "\phi'" swap] & Y \arrow[d, "\phi'"] \\
+        Z \arrow[r, "h"] & Z \\
+    \end{tikzcd}
+\end{center}
+If $f$  is conjugate to $g$ via $\phi$, and $g$ is conjugate to $h$ via $\phi'$, $\phi' \circ \phi \circ f = \phi' g \circ \phi = h \circ \phi'' $, which means $f$ is conjugate to $h$ via $h' \circ h$. 
+
+
 
 Topological semiconjugacy only requires a continuous surjection, $\psi$, such that $\psi \circ f = g \circ \psi$. 
 As $\psi$ may not have inverset semiconjugacy can not be an equivalence condition.
@@ -243,6 +266,7 @@ If $f$ is conjugate to $g$, necessarily $f$ and semi-conjugate to $g$ and $g$ is
 However, if $f$ is semiconjugate to $g$ and $g$ is semiconjugate to $f$, $f$ is not necessarily conjugate to $g$. 
 
 Chaotic behaviors are \emph{preserved} by conjugacy.
+
 
 \begin{thm}[Semiconjugacy preserves Chaos]\label{th_semicong_chaos}
 	If $f$ is semiconjugate to $g$ and $f$ is chaotic, $g$ also is.
@@ -280,18 +304,7 @@ Since conjugacy impies semi-conjugacy on both directions, we have the following 
 There are abundant examples of topological conjugacy.
 
 \begin{example}
-	If $f$ is conjugate to $g$ via $\phi$, and $g$ is conjugate to $h$ via $\psi$, $f$ is conjugate to $h$ via $\psi \circ \phi$.
-	\begin{center}
-	    \begin{tikzcd}
-	        X \arrow[r, "f"] \arrow[d, "\phi" swap] & X \arrow[d, "\phi"] \\
-	        Y \arrow[r, "g"] \arrow[d, "\psi" swap] & Y \arrow[d, "\psi"] \\
-	        Z \arrow[r, "h"] & Z \\
-	    \end{tikzcd}
-	\end{center}
-\end{example}
-
-\begin{example}
-	For open interval $[-\epsilon_1, \epsilon_2] \in \bb{R}$. 
+	In an open interval $[-\epsilon_1, \epsilon_2] \in \bb{R}$,
 	$f: [-\epsilon_1, \epsilon_2] \rightarrow [-\epsilon_1, \epsilon_2]$
 	is conjugate to 
 	$g: [-\epsilon_1 + a, \epsilon_2 + a] \rightarrow  [-\epsilon_1 + a, \epsilon_2 + a]$
@@ -343,7 +356,7 @@ There are abundant examples of topological conjugacy.
 	The above 3 examples shows that the doubling map is semi-conjugate to the logistic map $L_1(x) = 4x(1-x)$.
 \end{example}
 
-\begin{example}
+\begin{example}\label{ex:logistic and tent}
 	The logistic map $L_1(x) = 4x(1-x)$ in the interval $[0,1]$ is topologically conjugate to the tent map defined as 
 	\begin{equation}
 		f(x) = 
@@ -354,4 +367,6 @@ There are abundant examples of topological conjugacy.
 	\end{equation}
 	via the map $h: [0,1] \rightarrow [0,1]$ defined as $h(x) = \sin^2(\frac{\pi x}{2})$.
 	This can be verified by the simple computation $L_1 \circ h = h \circ f$.
+
+	Since $L_1$ is chaotic, so is the tent map.
 \end{example}
