@@ -5,15 +5,12 @@ Notwithstanding its simplicity, many of these maps exhibit extremely complicated
 
 Consider, for example, bacteria population in discrete time intervals. 
 If the population is low and resource abundant, the rate of growth is in proportion to the population, which gives rise to the following equation
-
 \begin{equation}\label{eq:1d iterative map}
 p_{t+1} = p_{t} b,
 \end{equation}
-
 where $p_{t}$ is the population of the bacteria at the discrete time $t$ and $b$, as a constant, is the static birth rate for bacteria whose value will depend on the model.
 
 The limited resource will slow down the rate of growth of the bacteria as the population increases, and the the relation will become 
-
 \begin{equation}\label{eq:p times beff}
 	p_{t+1} =  p_{t} \be
 \end{equation}
@@ -22,11 +19,9 @@ The usual assumption is that $\be$ is close to $b$ when the population is low, a
 At the threshold $\be$ will be zero.
 
 The simplest equation for modelling $\be$ is the linear equation
-
 \begin{equation} \label{eq:b_effective}
 \be = b - ap,
 \end{equation}
-
 where $a$ is another constant depending on the model.
 Combining the equations \eqref{eq:p times beff} and \eqref{eq:b_effective}, the recursive formula becomes 
 $$
@@ -37,13 +32,11 @@ Substituting $p_{t} := \frac{b}{a} x_{t}, \lambda := \frac{b}{4}$, we obtain
 $$
 x_{t+1} = 4 \lambda x_t(1-x_t) 
 $$
-
 Thence come the standard forms of the logistic map
 \footnote{
 Some sources defined the logistic map as $L^*_{\lambda}(x) = \lambda x(1-x)$ without the constant 4. 
 In this report, however, we will use equation \ref{eq_logistic}, which has the advantage that the maximum value attained by $\L(x)$ at $\frac{1}{2}$ is $\lambda$, and it will also be consistent to the definitions of other class of functions discussed later in the report.
 }
-
 \begin{equation}\label{eq_logistic}
 	L_{\lambda}(x) = 4 \lambda x(1-x)
 \end{equation}
@@ -55,7 +48,6 @@ In this report, however, we will use equation \ref{eq_logistic}, which has the a
 	\caption{Graphs of logistic map $L_{\lambda}(x) = 4 \lambda x(1-x)$ for different $\lambda$ compared with the line $y=x$ and $y = 1$.} 
 	\label{fig:logistic_map_diff_lambda}
 \end{figure}
-
 
 For our purpose the restriction $\lambda >0$ is applied.
 Scrutinising the class of discrete logistic functions plotted in figure \ref{fig:logistic_map_diff_lambda}, some of their properties are obvious
@@ -69,7 +61,6 @@ Scrutinising the class of discrete logistic functions plotted in figure \ref{fig
 
 
 We can check if this model would work as expected by comparing it to its continuous counterpart 
-
 \begin{equation}\label{eq_logistic_continuous}
 	\frac{dp}{dx} = c p(x) (1-p(x)),
 \end{equation}
@@ -168,13 +159,6 @@ The following paragraph lists some of the key observations of bifurcation and th
 	\label{fig:logistic bifurcation overview}
 \end{figure}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{./figures/logistic_bifurcation_log_scale.png}
-	\caption{Focusing on the logistic bifurcation with logarithmic scale.}
-	\label{fig:Logistic bifurcation log scaled}
-\end{figure}
-
 
 
 \begin{observation}[Logistic Bifurcation]\label{th:logistic_bifurcation}
@@ -226,7 +210,7 @@ The following paragraph lists some of the key observations of bifurcation and th
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.8\textwidth]{./figures/logistic_map_around_bifurcation_2.png}
-	\caption{Showing $\L^2, \L^4$ and $y=x$ close to one point of second bifurcation similar to figure \ref{fig:point_of_bifurcation1}}
+	\caption{Showing $\L^2, \L^4$ and $y=x$ close to one point of second bifurcation similar to figure \ref{fig:point_of_bifurcation1}}.
 	\label{fig:point_of_bifurcation2}
 \end{figure}
 
@@ -254,8 +238,21 @@ The following paragraph lists some of the key observations of bifurcation and th
 	Restricting our attention to a neighbourhood of $L^2$ around the point of second bifurcations, all of our above arguments can be applied to $L^2$ and $L^4$. 
 	This is the intuition why the bifurcation would continue indefinitely.
 	
-
-	Our arguments are qualitative, which can be made precise and rigourous by the use of Schwarzian derivative, as shown in chapter 12 of \cite{Devaney_green_book_chaos_definition}.
+	The above statement can be made precise and rigourous by the use of Schwarzian derivative, as shown in chapter 12 of \cite{Devaney_green_book_chaos_definition}.
+	\footnote{
+		The Schwarzian derivative of a function $f$ as $x$ is 
+		$$
+		Sf(x) = \frac{f'''(x)}{f'(x)} - \frac{3}{2} \left(\frac{f''(x)}{f'(x)}\right)^2.
+		$$
+		The details derivations of Schwarzian derivative and its application is beyond the scope of this report. 
+		Here some of the most fundamental properties are listed.
+		\begin{enumerate}
+			\item A polynomial $p(x)$ all of whose roots are real and distinct has negative Schwarzian derivative.
+			\item If $Sf < 0, Sg < 0$, then $S(f\circ g) < 0$.
+			\item If $Sf <0$, $f$ can not have a positive local minimum or negative local maximum.
+			\item If $Sf < 0$ and $f$ has finitely many critical points, then $f$ has finitely many attracting points of period $n$ for each $n$.
+		\end{enumerate}
+	}
 \end{proof}
 
 \begin{proof}[Demonstration of \ref{th:logistic_bifurcation}.\ref{log_at_most_one_stable_orbit}]
@@ -305,7 +302,7 @@ The following paragraph lists some of the key observations of bifurcation and th
 
 \section{Feigenbaum's Constant}
 
-Another striking observation from figure \ref{fig:logistic bifurcation overview} and \ref{fig:Logistic bifurcation log scaled} is that the overall shape of the graph exhibit some kind of fractal structure that is \emph{self similar}.
+Another striking observation from figure \ref{fig:logistic bifurcation overview} is that the overall shape of the graph exhibit some kind of fractal structure that is \emph{self similar}.
 If only focusing on one branch of bifurcation and disregarding the coordinates, the shape of each bifurcation is similar to any other up to enlongation and stretching, including the branches bifurcated out from itself.
  
  This observation is crucial to many properties of interated maps and leads naturally to the conjecture that each bifurcation is scaled down from its parent, and there are some constants to descibe the ratio of the scaling. 
@@ -471,7 +468,7 @@ The graphs of these functions, shown in figure \ref{fig:combined_bifurcations_fu
 All functions which give rise to bifurcation is smooth and have a single modal structure, that is, its value is bounded and attains an unique maximum in some interval, while those do not exhibit bifurcation is either not differential at the maximum (the tent map), or does not have local maximum(the exponential and arctangent map).
 This observation does fit our expectation, as in the proof of theorem \ref{th:logistic_bifurcation}, the most important properties used is that fact that the logistic function attains a unique, differentiable maximum at $0.5$ and it has constant negative second derivative, thus concaves downwards. 
 
-Metropolis et al \cite{metropolis2017finite} have shown that the bifurcation phenomenon is universal for all functions which satisfy the following properties, 
+Metropolis et al \cite{metropolis2017finite} have shown that the bifurcation phenomenon is universal as summarised in the following theorem.
 
 \begin{thm}[Criterion for infinite bifurcations]
 	If $f(x)$ satisfies the following properties:
